@@ -4,9 +4,12 @@ import loadingIcon from "../../assets/loading.svg";
 
 const ForgetPassword = () => {
   const [forgotUserEmail, setForgotUserEmail] = useState("");
-  const [forgotPassword, { isLoading, data: passwordData }] = useForgotPasswordMutation();
-  // console.log("data",passwordData)
-  // console.log("error",passwordError)
+  const [
+    forgotPassword,
+    { isLoading, data: passwordData, error: passwordError },
+  ] = useForgotPasswordMutation();
+  console.log("data", passwordData);
+  console.log("error", passwordError);
   const handleForgotPassword = (e) => {
     const { value } = e.target;
     setForgotUserEmail(value);
@@ -40,7 +43,11 @@ const ForgetPassword = () => {
   }
   return (
     <div className="w-full bg-gray-100 h-screen flex  justify-center items-center">
-      {passwordData?.message ? (
+      {passwordError ? (
+        <p className="text-3xl text-red-500 font-bold">
+          SERVER ISSUE PLEASE TRY AFTER SOME TIME
+        </p>
+      ) : passwordData?.message ? (
         <div>
           <p className="text-2xl font-bold text-green-300">
             {passwordData.message}

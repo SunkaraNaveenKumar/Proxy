@@ -80,8 +80,14 @@ userController.list = (req, res) => {
 /////////////////////////////////////////////////////// send forgot password link
 userController.sendForgotPasswordLink = async (req, res) => {
   const { body } = req;
-  const hostUrl = req.get("Referer");
-
+  let hostUrl
+  const nodeEnv = process.env.NODE_ENV
+  if(nodeEnv === "development"){
+     hostUrl = req.get("Referer");
+  }else if(nodeEnv === "production"){
+    hostUrl =req.get('host')
+  }
+  console.log(nodeEnv)
   try {
     const user = await users.findOne({ email: body.email });
     if (!user) {
