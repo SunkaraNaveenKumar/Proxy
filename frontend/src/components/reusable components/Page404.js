@@ -8,7 +8,7 @@ const Page404 = () => {
     setTimeout(() => {
       navigate("/");
     }, 3000);
-  }, []);
+  }, [navigate]);
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="bg-pink-200 rounded-lg  h-16 flex items-center justify-center w-2/5">

@@ -27,7 +27,7 @@ const Navigation = () => {
         dispatch(setUserLogin(isLoggedIn));
       }
     }
-  }, []);
+  }, [dispatch,isLoggedIn,role]);
   return (
     <div>
       <Header />

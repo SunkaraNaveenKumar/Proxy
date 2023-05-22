@@ -11,7 +11,7 @@ const Logout = () => {
     localStorage.removeItem("token");
     dispatch(userLogout());
     dispatch(adminLogout());
-  }, []);
+  }, [dispatch]);
   return <Navigate to="/user/login"></Navigate>;
 };
 

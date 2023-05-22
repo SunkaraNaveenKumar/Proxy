@@ -29,7 +29,7 @@ const ChangePassword = () => {
     } else {
       setData({ ...data, isSuccess: "", error: "" });
     }
-  }, []);
+  }, [data,token]);
   const handlePassword = (e) => {
     const { value, name } = e.target;
     if (name === "newpassword") {
