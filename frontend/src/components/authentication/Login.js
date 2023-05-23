@@ -10,7 +10,6 @@ import { useLoginMutation } from "../../store/apis/userApi";
 import { useAdminLoginMutation } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
 import { setAdminEmail, setAdminPassword } from "../../store/slices/adminSlice";
-import { getApiUrl } from "../../utils/configEnvUrl";
 const Login = () => {
   // console.log(process.env);
   console.log("login")
