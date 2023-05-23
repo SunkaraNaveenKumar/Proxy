@@ -88,7 +88,6 @@ userController.sendForgotPasswordLink = async (req, res) => {
   // }else if(nodeEnv === "production"){
   //   hostUrl =req.get('host')
   // }
-  console.log("nodeEnv",process.env)
   try {
     const user = await users.findOne({ email: body.email });
     if (!user) {
