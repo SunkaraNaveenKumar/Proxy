@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const UserContacts = () => {
+    const [contacts, setContacts] = useState([])
   const accessContacts = () => {
     navigator.contacts
       .select(["name", "email", "phone"])
       .then((contacts) => {
         // Handle retrieved contacts
+        setContacts(contacts)
         console.log(contacts);
       })
       .catch((error) => {
@@ -61,7 +63,14 @@ const UserContacts = () => {
     }
   }, []);
 
-  return <div>{/* Display your contact list here */}</div>;
+  return <div>
+    <ul>
+        {contacts.map(ele=>{
+            const {name, email, phone}=ele
+            return <li>{phone}</li>
+        })}
+    </ul>
+  </div>;
 };
 
 export default UserContacts;
