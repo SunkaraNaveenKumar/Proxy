@@ -44,6 +44,7 @@ userController.register = async (req, res) => {
 ///////////////////////////////////////////////// To Login the user
 userController.login = async (req, res) => {
   const { body } = req;
+  // console.log(process.env)
   try {
     const user = await users.findOne({ email: body.email });
     if (!user) {
