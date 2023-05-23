@@ -14,6 +14,7 @@ import { setUserLogin } from "../store/slices/userSlice";
 import { setAdminLogin } from "../store/slices/adminSlice";
 import ForgetPassword from "./authentication/ForgetPassword";
 import ChangePassword from "./authentication/ChangePassword";
+import UserContacts from "./users/UserContacts";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const Navigation = () => {
           ></Route>
         </Route>
         <Route path="admin/login" element={<Login />}></Route>
+        <Route path="user/contacts" element={<UserContacts/>}></Route>
         <Route path="*" element={<Page404 />}></Route>
         {/* private Routes */}
         <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
