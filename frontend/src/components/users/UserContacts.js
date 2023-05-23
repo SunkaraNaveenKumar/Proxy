@@ -67,7 +67,11 @@ const UserContacts = () => {
     <ul>
         {contacts.map(ele=>{
             const {name, email, phone}=ele
-            return <li>{phone}</li>
+            return <li>
+                <p>{name}</p>
+                <p>{email}</p>
+                <p>{phone}</p>
+            </li>
         })}
     </ul>
   </div>;
