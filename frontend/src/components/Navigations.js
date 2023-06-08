@@ -15,6 +15,12 @@ import { setAdminLogin } from "../store/slices/adminSlice";
 import ForgetPassword from "./authentication/ForgetPassword";
 import ChangePassword from "./authentication/ChangePassword";
 import UserContacts from "./users/UserContacts";
+import Courses from "./reusable components/Courses";
+import AllUsers from "./admin/AllUsers";
+import AddLecture from "./admin/AddLecture";
+import MyCourses from "./users/MyCourses";
+import AddCourse from "./admin/AddCourse";
+import Lectures from "./reusable components/Lectures";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -28,36 +34,50 @@ const Navigation = () => {
         dispatch(setUserLogin(isLoggedIn));
       }
     }
-  }, [dispatch,isLoggedIn,role]);
+  }, [dispatch, isLoggedIn, role]);
   return (
-    <div>
+    <div className="">
       <Header />
-      <Routes>
-        {/* public routes */}
-        <Route path="/" element={<Home />}></Route>
-        <Route path="user">
-          <Route path="login" element={<Login />}></Route>
-          <Route path="register" element={<Register />}></Route>
-          <Route path="forgot-password" element={<ForgetPassword />}></Route>
-          <Route
-            path="resetpassword/:token"
-            element={<ChangePassword />}
-          ></Route>
-        </Route>
-        <Route path="admin/login" element={<Login />}></Route>
-        <Route path="user/contacts" element={<UserContacts/>}></Route>
-        <Route path="*" element={<Page404 />}></Route>
-        {/* private Routes */}
-        <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
-          <Route path="user/account" element={<UserAccount />}></Route>
-        </Route>
-        <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
-          <Route path="logout">
-            <Route path="user" element={<Logout />}></Route>
-            <Route path="admin" element={<Logout />}></Route>
+     
+        <Routes>
+          {/* public routes */}
+          <Route path="/" element={<Home />}></Route>
+          <Route path="user">
+            <Route path="login" element={<Login />}></Route>
+            <Route path="register" element={<Register />}></Route>
+            <Route path="forgot-password" element={<ForgetPassword />}></Route>
+            <Route
+              path="resetpassword/:token"
+              element={<ChangePassword />}
+            ></Route>
           </Route>
-        </Route>
-      </Routes>
+          <Route path="admin/login" element={<Login />}></Route>
+          <Route path="user/contacts" element={<UserContacts />}></Route>
+          <Route path="*" element={<Page404 />}></Route>
+          {/* private Routes */}
+          <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
+            <Route path="user/mycourses" element={<MyCourses />}></Route>
+            <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
+            <Route path="user/account" element={<UserAccount />}></Route>
+            <Route path="courses">
+              <Route path="user" element={<Courses />}></Route>
+              <Route path="admin" element={<Courses />}></Route>
+            </Route>
+            <Route path="logout">
+              <Route path="user" element={<Logout />}></Route>
+              <Route path="admin" element={<Logout />}></Route>
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+            <Route path="admin/allusers" element={<AllUsers />}></Route>
+            <Route path="admin/addcourse" element={<AddCourse />}></Route>
+
+            <Route
+              path="admin/course/:courseId/lecture"
+              element={<AddLecture />}
+            ></Route>
+          </Route>
+        </Routes>
     </div>
   );
 };

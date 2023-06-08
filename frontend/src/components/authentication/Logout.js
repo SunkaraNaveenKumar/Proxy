@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { userLogout } from "../../store/slices/userSlice";
-import { adminLogout } from "../../store/slices/adminSlice";
+import useAuth from "../custom hooks/useAuth";
 
 const Logout = () => {
   console.log("logout");
+  const {role}=useAuth()
   const dispatch = useDispatch();
   useEffect(() => {
-    localStorage.removeItem("token");
-    dispatch(userLogout());
-    dispatch(adminLogout());
+    localStorage.clear();
+    // dispatch(userLogout());
+    // dispatch(adminLogout());
+    window.location.reload();
   }, [dispatch]);
-  return <Navigate to="/user/login"></Navigate>;
+  return <Navigate to={role === "admin" ?"/admin/login":"/user/login"}></Navigate>;
 };
 
 export default Logout;

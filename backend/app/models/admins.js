@@ -19,7 +19,8 @@ const adminsSchema =new Schema({
     role:{
         type:String,
         default:"admin"
-    }
+    },
+    // courses:[{courseId:{type:Schema.Types.ObjectId, ref:'courses'} }]
 },{timestamps:true})
 
 const admins = mongoose.model("admins",adminsSchema)

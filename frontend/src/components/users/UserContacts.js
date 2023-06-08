@@ -8,7 +8,7 @@ const UserContacts = () => {
       .then((contacts) => {
         // Handle retrieved contacts
         setContacts(contacts)
-        console.log(contacts);
+        // console.log(contacts);
       })
       .catch((error) => {
         // Error occurred while retrieving contacts, handle accordingly
@@ -17,12 +17,12 @@ const UserContacts = () => {
   };
   const handlePermissionDenied = () => {
     // Handle case when permission is denied
-    console.log("Contacts permission denied");
+    // console.log("Contacts permission denied");
   };
 
   const handleContactsNotSupported = () => {
     // Handle case when Contacts API is not supported
-    console.log("Contacts API is not supported");
+    // console.log("Contacts API is not supported");
   };
   useEffect(() => {
     const requestContactsPermission = async () => {

@@ -25,6 +25,10 @@ const userSchema = new Schema({
   role:{
     type:String,
     default:"user"
+  },
+  profileId:{
+    type:Schema.Types.ObjectId,
+    ref:'userProfiles'
   }
 },{timestamps:true});
 const hashPassword = async function (next) {

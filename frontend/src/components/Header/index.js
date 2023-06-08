@@ -11,8 +11,8 @@ const Header = () => {
   const { role } = useAuth();
   console.log("header");
   return (
-    <div>
-      <div className="flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
+    <div className="fixed w-full top-0 left-0">
+      <div className=" w-full flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
         <div className="">
           <img
             className="h-16 rounded-lg"
@@ -24,12 +24,23 @@ const Header = () => {
           <div>
             <Link to="/">Home</Link>
           </div>
-          <div>
+          {/* <div>
             <Link to="/user/contacts">Contacts</Link>
-          </div>
+          </div> */}
           {/* <div>
           <Link to="/user/resetpassword/hebfwhfbewjf">Link</Link>
         </div> */}
+          {adminLoggedIn && (
+            <>
+              <div>
+                <Link to="/admin/allusers">Users</Link>
+              </div>
+              <div>
+                <Link to="admin/addcourse">Add Course</Link>
+              </div>
+            </>
+          )}
+
           {!userLoggedIn && !adminLoggedIn && (
             <>
               <div>
@@ -43,12 +54,21 @@ const Header = () => {
               </div>
             </>
           )}
-
+          {userLoggedIn && (
+            <>
+              <div>
+                <Link to="/user/mycourses">My Courses</Link>
+              </div>
+            </>
+          )}
           {(userLoggedIn || adminLoggedIn) && (
             <>
               <div>
                 <Link to={`/${role}/account`}>Account</Link>
               </div>
+              {/* <div>
+                <Link to={`/courses/${role}`}>Courses</Link>
+              </div> */}
               <div>
                 <Link to={`/logout/${role}`}>logout</Link>
               </div>

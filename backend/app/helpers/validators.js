@@ -12,6 +12,8 @@
         /[0-9]/.test(password)
       );
  }
+
+
 module.exports = {
     emailValidator,
     passwordvalidator

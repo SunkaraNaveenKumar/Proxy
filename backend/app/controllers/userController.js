@@ -1,11 +1,14 @@
 const { tokenGeneration } = require("../helpers/tokenGeneration");
 const users = require("../models/users");
+const userProfiles = require("../models/userProfiles")
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 // const sendGridTransport = require("nodemailer-sendgrid-transport");
 const userController = {};
-const jwt = require("jsonwebtoken")
-const _ = require("lodash")
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
+const courses = require("../models/courses");
+const fetchFeilds = require("../helpers/fetchFeilds");
 /////////////////////////////////
 // const transporter = nodemailer.createTransport(
 //   sendGridTransport({
@@ -55,7 +58,7 @@ userController.login = async (req, res) => {
         user.password
       );
       if (isValidPassword) {
-        const expiresIn ="1d"
+        const expiresIn = "1d";
         const token = tokenGeneration(user, req, expiresIn);
         res.json({ token: `Bearer ${token}` });
       } else {
@@ -68,21 +71,32 @@ userController.login = async (req, res) => {
 };
 
 //////////////////////////////////////////////// to get the list of users
-userController.list = (req, res) => {
-  users
-    .find()
-    .then((list) => {
-      res.status(200).json(list);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
-};
+// userController.getAllUsers = (req, res) => {
+//   users
+//     .find()
+//     .then((list) => {
+//       res.status(200).json(list);
+//     })
+//     .catch((err) => {
+//       res.status(400).json(err);
+//     });
+// };
+//////////////////////////////// get all courses 
+userController.getAllCourses =async(req,res)=>{
+  try{
+    const allCourses = await courses.find().sort({createdAt:"descending"})
+    res.json(fetchFeilds(allCourses,["title","description","imageUrl","price","_id","createdAt"]))
+  }catch(err){
+    res.json(err)
+  }
+}
 /////////////////////////////////////////////////////// send forgot password link
 userController.sendForgotPasswordLink = async (req, res) => {
   const { body } = req;
-  let hostUrl = req.get("Referer") ? req.get("Referer") : process.env.CLIENT_URL
-  const nodeEnv = process.env.NODE_ENV
+  let hostUrl = req.get("Referer")
+    ? req.get("Referer")
+    : process.env.CLIENT_URL;
+  const nodeEnv = process.env.NODE_ENV;
   // if(nodeEnv === "development"){
   //    hostUrl = req.get("Referer");
   // }else if(nodeEnv === "production"){
@@ -93,7 +107,7 @@ userController.sendForgotPasswordLink = async (req, res) => {
     if (!user) {
       res.json({ errors: "No Registere User with this email Please register" });
     } else {
-      const expiresIn = "2m"
+      const expiresIn = "2m";
       const token = tokenGeneration(user, req, expiresIn);
       const link = `${hostUrl}user/resetpassword/${token}`;
       // console.log("link", link);
@@ -121,27 +135,51 @@ userController.sendForgotPasswordLink = async (req, res) => {
   }
 };
 /////////////////////////////////////////////////////////change password
-userController.changePassword=async(req,res)=>{
-  const {token}=req.params
+userController.changePassword = async (req, res) => {
+  const { token } = req.params;
   // console.log("token",token)
-  const {newPassword}=req.body 
+  const { newPassword } = req.body;
   // console.log("newPassword",newPassword)
-  try{
-    const tokenInfo = jwt.verify(token,process.env.SECRETE_KEY) 
-    console.log("tokenInfo",tokenInfo)
-    const user = await users.findOneAndUpdate({ _id: tokenInfo._id},{password:newPassword},{runValidators:true})
-    if(!user){
-      res.json({errors:"Invalid Token"})
-
-    }else{
-      console.log(user)
-      res.json({isSuccess:"Password Changed Successfully"})
+  try {
+    const tokenInfo = jwt.verify(token, process.env.SECRETE_KEY);
+    // console.log("tokenInfo", tokenInfo);
+    const user = await users.findOneAndUpdate(
+      { _id: tokenInfo._id },
+      { password: newPassword },
+      { runValidators: true }
+    );
+    if (!user) {
+      res.json({ errors: "Invalid Token" });
+    } else {
+      // console.log(user);
+      res.json({ isSuccess: "Password Changed Successfully" });
     }
+  } catch (err) {
+    // console.log(err);
+    res.json(err);
+  }
+};
+
+userController.addUserProfile=async(req,res)=>{
+ 
+  const body = req.body 
+  console.log("body",body)
+  try{
+    const {updatedUser,userProfile} = await userProfiles.addProfile(req)
+    res.json(userProfile)
   }catch(err){
-    console.log(err)
     res.json(err)
   }
- 
-  
+}
+
+userController.getUserAccount= async (req,res)=>{
+const user = req.user 
+// console.log(user)
+try{
+  const userAccount = await userProfiles.findOne({_id: user.profileId, userId:user._id})
+  res.json(_.pick(userAccount,['fullName',"address","phoneNumber","adharImages","panImages","isSaved",""]))
+}catch(err){
+  res.json({errors:"No user Profile Found"})
+}
 }
 module.exports = userController;
