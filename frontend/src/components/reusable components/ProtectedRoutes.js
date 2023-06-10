@@ -16,7 +16,7 @@ const ProtectedRoutes = ({ allowedRoles }) => {
       </>
     );
   }
-  return <Navigate to="/user/login" state={{ from: location }}></Navigate>;
+  return <Navigate to={`/${role}/login`} state={{ from: location }}></Navigate>;
 };
 
 export default ProtectedRoutes;

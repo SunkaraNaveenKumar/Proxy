@@ -48,7 +48,7 @@ const CourseList = ({ courses, type, userId }) => {
                 <Logout />
             ) : (
                 <>
-                    <div className=" py-10 mt-16 flex flex-row flex-wrap gap-10 justify-center items-center">
+                    <div className=" py-10 flex flex-row flex-wrap gap-10 justify-center items-center">
                         <Toaster />
                         {courses?.map((course) => {
                             const { title, description, price, imageUrl, _id, enrolled } = course;

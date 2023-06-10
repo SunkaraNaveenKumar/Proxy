@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Page404 = () => {
+  const timer = useRef(null)
   console.log("404page");
   const navigate = useNavigate();
   useEffect(() => {
-    setTimeout(() => {
+    timer.current = setTimeout(() => {
       navigate("/");
     }, 3000);
+    return () => { clearInterval(timer.current) }
   }, [navigate]);
   return (
     <div className="w-full h-screen flex justify-center items-center">

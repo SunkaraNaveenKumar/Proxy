@@ -22,6 +22,7 @@ import AddCourse from "./admin/AddCourse";
 import Lectures from "./reusable components/Lectures";
 import MyCourses from "./reusable components/MyCourses";
 import EnrolledCourses from "./admin/EnrolledCourses";
+import PublicRoutes from "./reusable components/PublicRoutes";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -39,10 +40,12 @@ const Navigation = () => {
   return (
     <div className="">
       <Header />
-     
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<Home />}></Route>
+
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="*" element={<Page404 />}></Route>
+        {/* public routes */}
+        <Route element={<PublicRoutes />}>
           <Route path="user">
             <Route path="login" element={<Login />}></Route>
             <Route path="register" element={<Register />}></Route>
@@ -54,36 +57,37 @@ const Navigation = () => {
           </Route>
           <Route path="admin/login" element={<Login />}></Route>
           <Route path="user/contacts" element={<UserContacts />}></Route>
-          <Route path="*" element={<Page404 />}></Route>
-          {/* private Routes */}
-          <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
-            <Route path="mycourses">
+
+        </Route>
+        {/* private Routes */}
+        <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
+          <Route path="mycourses">
             <Route path="user" element={<MyCourses />}></Route>
             <Route path="admin" element={<MyCourses />}></Route>
-            </Route>
-            
-            <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
-            <Route path="user/account" element={<UserAccount />}></Route>
-            <Route path="courses">
-              <Route path="user" element={<Courses />}></Route>
-              <Route path="admin" element={<Courses />}></Route>
-            </Route>
-            <Route path="logout">
-              <Route path="user" element={<Logout />}></Route>
-              <Route path="admin" element={<Logout />}></Route>
-            </Route>
           </Route>
-          <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
-            <Route path="admin/allusers" element={<AllUsers />}></Route>
-            <Route path="admin/user/:userId/courses" element={<EnrolledCourses />}></Route>
-            <Route path="admin/addcourse" element={<AddCourse />}></Route>
 
-            <Route
-              path="admin/course/:courseId/lecture"
-              element={<AddLecture />}
-            ></Route>
+          <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
+          <Route path="user/account" element={<UserAccount />}></Route>
+          <Route path="allcourses">
+            <Route path="user" element={<Courses />}></Route>
+            <Route path="admin" element={<Courses />}></Route>
           </Route>
-        </Routes>
+          <Route path="logout">
+            <Route path="user" element={<Logout />}></Route>
+            <Route path="admin" element={<Logout />}></Route>
+          </Route>
+        </Route>
+        <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+          <Route path="admin/allusers" element={<AllUsers />}></Route>
+          <Route path="admin/user/:userId/courses" element={<EnrolledCourses />}></Route>
+          <Route path="admin/addcourse" element={<AddCourse />}></Route>
+
+          <Route
+            path="admin/course/:courseId/lecture"
+            element={<AddLecture />}
+          ></Route>
+        </Route>
+      </Routes>
     </div>
   );
 };
