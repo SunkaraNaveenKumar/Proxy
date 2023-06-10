@@ -7,6 +7,8 @@ import { useEnrollUserMutation, useUnEnrollUserMutation } from '../../store/apis
 import { normalToaster } from '../../utils/helpers';
 import loadingIcon from "../../assets/loading.svg"
 import Logout from '../authentication/Logout';
+
+
 const CourseList = ({ courses, type, userId }) => {
     const navigate = useNavigate();
     const { role } = useAuth();

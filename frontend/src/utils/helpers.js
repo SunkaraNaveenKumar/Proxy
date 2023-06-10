@@ -12,3 +12,13 @@ export const normalToaster = (displayText) => {
     position: toast.POSITION.TOP_RIGHT,
   });
 };
+
+export const filteredUsersFunc = (users,value) => {
+  const filteredData = users?.filter((user) => {
+    return (
+      user.username.toLowerCase().includes(value.toLowerCase()) ||
+      user.email.split("@")[0].toLowerCase().includes(value.toLowerCase())
+    );
+  });
+  return filteredData;
+};

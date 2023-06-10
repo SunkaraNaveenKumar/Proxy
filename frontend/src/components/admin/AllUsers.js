@@ -7,7 +7,7 @@ import {
 import loadingIcon from "../../assets/loading.svg";
 import SearchBar from "../reusable components/SearchBar";
 import clsx from "clsx";
-import { normalToaster } from "../../utils/helpers";
+import { filteredUsersFunc, normalToaster } from "../../utils/helpers";
 import Toaster from "../reusable components/Toaster";
 import Logout from "../authentication/Logout";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const AllUsers = () => {
   //////////////////////////////useEffects
   useEffect(() => {
     if (users) {
-      setFilteredUsersData(filteredDataFunc(searchText));
+      setFilteredUsersData(filteredUsersFunc(users, searchText));
     }
     // eslint-disable-next-line
   }, [users]);
@@ -52,21 +52,13 @@ const AllUsers = () => {
     // eslint-disable-next-line
   }, [deletedUserData]);
   //////////////////////////////////////////helpers
-  const filteredDataFunc = (value) => {
-    const filteredData = users.filter((user) => {
-      return (
-        user.username.toLowerCase().includes(value.toLowerCase()) ||
-        user.email.split("@")[0].toLowerCase().includes(value.toLowerCase())
-      );
-    });
-    return filteredData;
-  };
+
   ////////////////////////////////////////////////////
   const handleUserCourses = (userId) => {
     navigate(`/admin/user/${userId}/courses`)
   }
   const searchFunc = (value) => {
-    setFilteredUsersData(filteredDataFunc(value));
+    setFilteredUsersData(filteredUsersFunc(users, value));
   };
   const handleDeleteUser = (id) => {
     deleteUser(id);
@@ -105,7 +97,7 @@ const AllUsers = () => {
               <p>Total Users:{users?.length}</p>
               <p>FilteredUsers:{filteredUsersData?.length}</p>
             </div>
-            {!filteredUsersData.length ? (
+            {!filteredUsersData?.length ? (
               // <div className="w-full h-screen flex justify-center items-center">
               <div className="bg-pink-200 rounded-lg  h-16 flex items-center justify-center w-2/5">
                 <h1 className=" text-xl text-center font-bold ">

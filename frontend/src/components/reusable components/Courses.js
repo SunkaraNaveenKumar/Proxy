@@ -5,6 +5,7 @@ import {
 import SearchBar from "./SearchBar";
 import Logout from "../authentication/Logout";
 import CourseList from "./CourseList";
+import ErrorHandling from "../HOC/ErrorHandling";
 const Courses = () => {
 
   ///////////////////////////////// react states
@@ -22,15 +23,14 @@ const Courses = () => {
   //////////////////////////////////////  event handlers
 
   /////////////////////////////
-  console.log("courses", courses);
-  console.log("error", error);
+  // console.log("courses", courses);
+  // console.log("error", error);
   return (
     <div className="flex mt-20 flex-col justify-center items-center gap-2">
       <SearchBar />
-      {isLoading  ? (
+      {isLoading ? (
         <>
           <div className=" flex w-full h-screen justify-center items-center">
-            {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
             <img src={loadingIcon} alt="loading"></img>
           </div>
         </>
@@ -42,7 +42,7 @@ const Courses = () => {
             </>
           ) : (
             <>
-              <CourseList courses={courses}/>
+              <CourseList courses={courses} />
             </>
           )}
         </>
@@ -51,4 +51,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default ErrorHandling(Courses) ;
