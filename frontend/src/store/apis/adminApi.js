@@ -19,7 +19,7 @@ export const adminApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["admin", "mycourses", "users", "lectures"],
+  tagTypes: ["admin", "mycourses", "users", "lectures", "enrolledCourses"],
   endpoints: (builder) => ({
     adminLogin: builder.mutation({
       query: (formData) => ({
@@ -29,7 +29,7 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["admin"],
     }),
-    getAllCourses: builder.query({
+    getAdminCourses: builder.query({
       query: () => ({
         url: "/admin/mycourses",
         method: "GET",
@@ -91,19 +91,43 @@ export const adminApi = createApi({
       }),
       providesTags: ["lectures"],
     }),
+    getUserEnrolledCourses: builder.query({
+      query: (userId) => ({
+        url: `/admin/user/${userId}/courses`,
+        method: "GET"
+      }),
+      providesTags:["enrolledCourses"]
+    }),
+    enrollUser: builder.mutation({
+      query:({userId,courseId})=>({
+        url:`/admin/enroll?userId=${userId}&courseId=${courseId}`,
+       method:"PATCH"
+      }),
+      invalidatesTags:["enrolledCourses"]
+    }),
+    unEnrollUser : builder.mutation({
+      query:({userId,courseId})=>({
+        url:`/admin/unenroll?userId=${userId}&courseId=${courseId}`,
+        method:"PATCH"
+      }),
+      invalidatesTags:["enrolledCourses"]
+    }),
   }),
 });
 
 export const {
   useAdminLoginMutation,
   useAddCourseMutation,
-  useGetAllCoursesQuery,
+  useGetAdminCoursesQuery,
   useGetAllUsersQuery,
   useDeleteUserMutation,
   useDeleteUserProfileMutation,
   useAddLectureMutation,
   useDeleteCourseMutation,
   useGetLecturesQuery,
+  useGetUserEnrolledCoursesQuery,
+  useEnrollUserMutation,
+  useUnEnrollUserMutation
 } = adminApi;
 
 ////////////////////////////////// replacing fetch with axios

@@ -7,13 +7,15 @@ const configureDb = () => {
     useUnifiedTopology: true,
   };
   const url = `mongodb+srv://${process.env.NAME}:${process.env.PASSWORD}@cluster0.chr3g4p.mongodb.net/?retryWrites=true&w=majority`;
+  // const url = `mongodb+srv://sunkaranaveensunkara:naveen@cluster0.chr3g4p.mongodb.net/?retryWrites=true&w=majority`;
+  // mongoose.set("debug", true);
   mongoose
     .connect(url, connectionParams)
     .then(() => {
       console.log("connected to database");
     })
     .catch((err) => {
-      console.log(err);
+      console.log("MongoDB err :",err);
     });
 };
 

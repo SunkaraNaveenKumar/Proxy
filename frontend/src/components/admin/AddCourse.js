@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Form from "../reusable components/Form";
 import loadingIcon from "../../assets/loading.svg";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../custom hooks/useAuth";
 import { useAddCourseMutation } from "../../store/apis/adminApi";
 import { normalToaster } from "../../utils/helpers";
 import Toaster from "../reusable components/Toaster";
@@ -35,8 +33,6 @@ const initialCourseState = {
 };
 
 const AddCourse = () => {
-  const navigate = useNavigate();
-  const { role } = useAuth();
   //////////////////////////////// state
   const [course, setCourse] = useState(initialCourseState);
   //////////////////////////////////// rtk query

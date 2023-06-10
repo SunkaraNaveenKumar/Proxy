@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt")
 const Schema = mongoose.Schema;
-const {emailValidator,passwordvalidator} = require('../helpers/validators')
+const { emailValidator, passwordvalidator } = require('../helpers/validators')
 const userSchema = new Schema({
   username: {
     type: String,
@@ -10,27 +10,31 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: [true, "email is required"],
-    validate: [emailValidator,"Invalid email"],
+    validate: [emailValidator, "Invalid email"],
     unique: true,
   },
   password: {
     type: String,
     required: [true, "password is required"],
-    validate: [passwordvalidator,"password must have atleast One Capital Number,One small number, Symbol, number and length should be atleast 10 charecters"]
+    validate: [passwordvalidator, "password must have atleast One Capital Number,One small number, Symbol, number and length should be atleast 10 charecters"]
   },
   // createdAt: {
   //   type: Date,
   //   default: Date.now,
   // },
-  role:{
-    type:String,
-    default:"user"
+  role: {
+    type: String,
+    default: "user"
   },
-  profileId:{
-    type:Schema.Types.ObjectId,
-    ref:'userProfiles'
+  profileId: {
+    type: Schema.Types.ObjectId,
+    ref: 'userProfiles'
+  },
+  courses: {
+    type: [Schema.Types.ObjectId],
+
   }
-},{timestamps:true});
+}, { timestamps: true });
 const hashPassword = async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
@@ -57,7 +61,7 @@ userSchema.pre("findOneAndUpdate", async function (next) {
 });
 
 
-  
+
 
 const users = mongoose.model(
   "users",

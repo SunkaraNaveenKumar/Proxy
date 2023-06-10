@@ -84,7 +84,7 @@ const Form = ({
         } else if (type === "select") {
           const { selectData } = data[key];
           return (
-            <div key={i}  className="flex w-full flex-col justify-center items-center gap-2">
+            <div key={i} className="flex w-full flex-col justify-center items-center gap-2">
               <select
                 className="flex justify-center items-center w-full border border-solid border-black rounded-lg shadow-lg pl-6 h-10"
                 name={name}
@@ -107,8 +107,11 @@ const Form = ({
               )}
             </div>
           );
+        } else {
+          return null
         }
       })}
+
       <div
         className={clsx(
           "flex flex-row w-full items-center",

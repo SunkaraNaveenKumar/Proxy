@@ -198,4 +198,95 @@ adminController.getLectures = async (req, res) => {
     res.json(err);
   }
 };
+adminController.getUserEnrolledCourses = async (req, res) => {
+  const { admin } = req
+  const { userId } = req.params
+  console.log(admin,userId);
+  try {
+    const user = await users.findById(userId)
+    if (user) {
+      const userEnrolledCourses = await courses.aggregate([
+        { $match: { adminId: admin._id } },
+        // {
+        //   $lookup: {
+        //     from: "users",
+        //     localField: "courses",
+        //     foreignField: "_id",
+        //     as: "enrolledStudents",
+        //   },
+        // },
+        ///////////////////////////////////////
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            description: 1,
+            imageUrl: 1,
+            price: 1,
+            createdAt: 1,
+            enrolled: {
+              $cond: {
+                if: { $in: ["$_id", user.courses] },
+                then: true,
+                else: false,
+              },
+            },
+            // users:0
+          },
+        },
+        // { $sort: { createdAt: -1 } },
+      ]);
+
+      // console.log("studentEnrolledCourses", studentEnrolledCourses)
+      res.json(userEnrolledCourses)
+    } else {
+      res.status(401).json("Cannot find user in the database")
+    }
+
+  } catch (err) {
+    res.json(err)
+  }
+}
+
+adminController.enrollStudentToCourse = async (req, res) => {
+  const { userId, courseId } = req.query
+  try {
+    //  console.log(userId,courseId)
+    const alreadyEnrolled = await users.findOne({ _id:userId,courses: { $in: [courseId] } })
+    // console.log(alreadyEnrolled)
+    if (alreadyEnrolled) {
+      res.json({ message: "Already Enrolled" })
+    } else {
+      const enrolled = await users.findByIdAndUpdate(userId, { $push: { courses: courseId } })
+      if (enrolled) {
+        res.json({ message: "successfully enrolled to the course" })
+      } else {
+        res.status(404).json({ errors: "something went wrong with enrolling the user" })
+      }
+    }
+
+  } catch (err) {
+    res.json(err)
+  }
+}
+adminController.unEnrollStudentToCourse = async (req, res) => {
+  const { userId, courseId } = req.query
+  try {
+    const alreadyEnrolled = await users.findOne({_id:userId, courses: { $in: [courseId] } })
+    if (alreadyEnrolled) {
+      const unEnroll = await users.findByIdAndUpdate(userId, { $pull: { courses: courseId } })
+      if (unEnroll) {
+        res.json({ message: "successfully unenrolled to the course" })
+      } else {
+        res.status(404).json({ errors: "something went wrong with unenrolling the user" })
+      }
+    } else {
+      res.status(404).json({ message: "Already UnEnrolled" })
+    }
+
+  }
+  catch (err) {
+    res.json(err)
+  }
+}
 module.exports = adminController;

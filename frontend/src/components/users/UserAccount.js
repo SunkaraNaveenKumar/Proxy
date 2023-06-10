@@ -65,6 +65,7 @@ const UserAccount = () => {
         });
       }
     }
+    // eslint-disable-next-line
   }, [data]);
   // useEffect(() => {
   //   refetch();

@@ -18,9 +18,10 @@ import UserContacts from "./users/UserContacts";
 import Courses from "./reusable components/Courses";
 import AllUsers from "./admin/AllUsers";
 import AddLecture from "./admin/AddLecture";
-import MyCourses from "./users/MyCourses";
 import AddCourse from "./admin/AddCourse";
 import Lectures from "./reusable components/Lectures";
+import MyCourses from "./reusable components/MyCourses";
+import EnrolledCourses from "./admin/EnrolledCourses";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,11 @@ const Navigation = () => {
           <Route path="*" element={<Page404 />}></Route>
           {/* private Routes */}
           <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
-            <Route path="user/mycourses" element={<MyCourses />}></Route>
+            <Route path="mycourses">
+            <Route path="user" element={<MyCourses />}></Route>
+            <Route path="admin" element={<MyCourses />}></Route>
+            </Route>
+            
             <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
             <Route path="user/account" element={<UserAccount />}></Route>
             <Route path="courses">
@@ -70,6 +75,7 @@ const Navigation = () => {
           </Route>
           <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
             <Route path="admin/allusers" element={<AllUsers />}></Route>
+            <Route path="admin/user/:userId/courses" element={<EnrolledCourses />}></Route>
             <Route path="admin/addcourse" element={<AddCourse />}></Route>
 
             <Route

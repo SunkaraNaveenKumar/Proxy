@@ -11,7 +11,7 @@ import { useAdminLoginMutation } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
 import { setAdminEmail, setAdminPassword } from "../../store/slices/adminSlice";
 const Login = () => {
-  // console.log(process.env);
+  // console.log(process.env.REACT_APP_SERVER_URL);
   console.log("login")
   const location = useLocation();
   const dispatch = useDispatch();

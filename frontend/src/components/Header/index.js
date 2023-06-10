@@ -21,9 +21,7 @@ const Header = () => {
           ></img>
         </div>
         <div className="flex flex-row gap-x-10 items-center ">
-          <div>
-            <Link to="/">Home</Link>
-          </div>
+          <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg" to="/">Home</Link>
           {/* <div>
             <Link to="/user/contacts">Contacts</Link>
           </div> */}
@@ -32,12 +30,19 @@ const Header = () => {
         </div> */}
           {adminLoggedIn && (
             <>
-              <div>
-                <Link to="/admin/allusers">Users</Link>
+              <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg" to="/admin/allusers">Users</Link>
+              <div className="relative group">
+                <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Courses</Link>
+                <div className="w-52 absolute hidden group-hover:block text-white rounded-md">
+                  <div className="h-3 bg-transparent"></div>
+                  <div className="bg-gray-700">
+                    <Link className="flex  hover:bg-gray-600 py-2 px-4" to={`/mycourses/${role}`}>My Courses</Link>
+                    <Link className="flex  hover:bg-gray-600 py-2 px-4" to="admin/addcourse">Add Course</Link>
+                  </div>
+
+                </div>
               </div>
-              <div>
-                <Link to="admin/addcourse">Add Course</Link>
-              </div>
+
             </>
           )}
 
@@ -57,21 +62,28 @@ const Header = () => {
           {userLoggedIn && (
             <>
               <div>
-                <Link to="/user/mycourses">My Courses</Link>
+                <Link to={`/mycourses/${role}`}>My Courses</Link>
               </div>
             </>
           )}
           {(userLoggedIn || adminLoggedIn) && (
             <>
-              <div>
-                <Link to={`/${role}/account`}>Account</Link>
-              </div>
+
               {/* <div>
                 <Link to={`/courses/${role}`}>Courses</Link>
               </div> */}
-              <div>
-                <Link to={`/logout/${role}`}>logout</Link>
+              <div className="relative group">
+                <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Profile</Link>
+                <div className="w-52 absolute  hidden group-hover:block text-white right-0">
+                  <div className="bg-transparent h-3"></div>
+                  <div className="bg-gray-700">
+                    <Link className="flex hover:bg-gray-600 py-2 px-4" to={`/${role}/account`}>Account</Link>
+                    <Link className="flex  hover:bg-gray-600 py-2 px-4" to={`/logout/${role}`}>logout</Link>
+                  </div>
+                </div>
               </div>
+
+
             </>
           )}
         </div>

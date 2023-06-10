@@ -10,9 +10,11 @@ import clsx from "clsx";
 import { normalToaster } from "../../utils/helpers";
 import Toaster from "../reusable components/Toaster";
 import Logout from "../authentication/Logout";
+import { useNavigate } from "react-router-dom";
 
 const AllUsers = () => {
   console.log("allUsers");
+  const navigate = useNavigate()
   const {
     data: users,
     isLoading,
@@ -22,7 +24,7 @@ const AllUsers = () => {
     deleteUser,
     {
       data: deletedUserData,
-      isLoading: delterUserLoading,
+      isLoading: deleteUserLoading,
       error: deleteUserError,
     },
   ] = useDeleteUserMutation();
@@ -39,6 +41,7 @@ const AllUsers = () => {
     if (users) {
       setFilteredUsersData(filteredDataFunc(searchText));
     }
+    // eslint-disable-next-line
   }, [users]);
   useEffect(() => {
     if (deletedUserData) {
@@ -46,6 +49,7 @@ const AllUsers = () => {
         normalToaster("Successfully user has been deleted");
       }
     }
+    // eslint-disable-next-line
   }, [deletedUserData]);
   //////////////////////////////////////////helpers
   const filteredDataFunc = (value) => {
@@ -58,6 +62,9 @@ const AllUsers = () => {
     return filteredData;
   };
   ////////////////////////////////////////////////////
+  const handleUserCourses = (userId) => {
+    navigate(`/admin/user/${userId}/courses`)
+  }
   const searchFunc = (value) => {
     setFilteredUsersData(filteredDataFunc(value));
   };
@@ -75,7 +82,7 @@ const AllUsers = () => {
   const handleDeleteUserProfile = (id) => {
     deleteUserProfile(id);
   };
-  if (isLoading) {
+  if (isLoading || deleteUserLoading || deleteUserProfileLoading) {
     return (
       <div className=" flex w-full h-screen justify-center items-center">
         {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
@@ -86,8 +93,8 @@ const AllUsers = () => {
   return (
     <>
       {allUsersError?.status === 401 ||
-      deleteUserError?.status === 401 ||
-      deleteUserProfileError?.status === 401 ? (
+        deleteUserError?.status === 401 ||
+        deleteUserProfileError?.status === 401 ? (
         <Logout />
       ) : (
         <>
@@ -112,12 +119,13 @@ const AllUsers = () => {
                 <table className="border border-black border-solid ">
                   <thead className="bg-gray-200 p-10">
                     <tr className="flex flex-row gap-10">
-                      <th className="w-56">id</th>
-                      <th className="w-56">Name</th>
-                      <th className="w-80 ">Email</th>
-                      <th className="w-8">Role</th>
-                      <th className="w-18">Delete User</th>
-                      <th className="w-18">Delete Profile</th>
+                      <th className="w-56 flex justify-start items-center">id</th>
+                      <th className="w-56  flex justify-start items-center">Name</th>
+                      <th className="w-80 flex justify-start items-center">Email</th>
+                      <th className="w-8 flex justify-start items-center">Role</th>
+                      <th className="w-18 flex justify-start items-center">courses</th>
+                      <th className="w-18 flex justify-start items-center">Delete User</th>
+                      <th className="w-18 flex justify-start items-center">Delete Profile</th>
                     </tr>
                   </thead>
                   <tbody className="flex flex-col gap-10 mt-10">
@@ -125,11 +133,21 @@ const AllUsers = () => {
                       const { username, email, _id, role, profileId } = user;
                       return (
                         <tr key={_id} className="flex flex-row gap-10">
-                          <td className="w-56 ">{_id}</td>
-                          <td className="w-56 overflow-x-auto">{username}</td>
-                          <td className="w-80 overflow-x-auto">{email}</td>
-                          <td className="w-8">{role}</td>
-                          <td className="w-18">
+                          <td className="w-56 flex justify-start items-center">{_id}</td>
+                          <td className="w-56 overflow-x-auto flex justify-start items-center">{username}</td>
+                          <td className="w-80 overflow-x-auto flex justify-start items-center">{email}</td>
+                          <td className="w-8 flex justify-start items-center">{role}</td>
+                          <td className="w-18 flex justify-start items-center">
+                            <button
+                              className="bg-red-300 rounded-lg shadow-lg w-20"
+                              onClick={() => {
+                                handleUserCourses(_id)
+                              }}
+                            >
+                              courses
+                            </button>
+                          </td>
+                          <td className="w-18 flex justify-start items-center">
                             <button
                               className="bg-red-300 rounded-lg shadow-lg w-20"
                               onClick={() => {
@@ -139,7 +157,7 @@ const AllUsers = () => {
                               Delete
                             </button>
                           </td>
-                          <td className="w-18">
+                          <td className="w-18 flex justify-start items-center">
                             <button
                               disabled={!profileId}
                               onClick={() => {

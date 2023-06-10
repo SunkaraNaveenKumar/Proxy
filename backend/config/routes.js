@@ -18,11 +18,14 @@ router.get("/allcourses",userController.getAllCourses)
 ///////////////////////
 router.post('/admin/login',adminController.login)
 router.post("/admin/courses",authenticate,authorizeUser(["admin"]),adminController.addCourse),
-router.get("/admin/mycourses",authenticate,adminController.getMyCourses)
+router.get("/admin/mycourses",authenticate,authorizeUser(["admin"]),adminController.getMyCourses)
+router.get("/admin/user/:userId/courses",authenticate,authorizeUser(["admin"]),adminController.getUserEnrolledCourses)
 router.get("/admin/users",authenticate,authorizeUser(["admin"]),adminController.getAllUsers)
 router.post("/admin/course/:courseId/lecture",authenticate,authorizeUser(["admin"]), adminController.addLecture)
 router.get("/admin/course/:courseId/lectures",authenticate,authorizeUser(["admin","user"]), adminController.getLectures)
 router.delete("/admin/user/:userId",authenticate,authorizeUser(["admin"]),adminController.deleteUser)
 router.delete("/admin/course/:courseId",authenticate,authorizeUser(["admin"]),adminController.deleteCourse)
 router.delete("/admin/user/profile/:userId",authenticate,authorizeUser(["admin"]),adminController.deleteUserProfile)
+router.patch("/admin/enroll",authenticate,authorizeUser(["admin"]),adminController.enrollStudentToCourse)
+router.patch("/admin/unenroll",authenticate,authorizeUser(["admin"]),adminController.unEnrollStudentToCourse)
 module.exports=router
