@@ -129,7 +129,7 @@ export const {
   useEnrollUserMutation,
   useUnEnrollUserMutation
 } = adminApi;
-
+export default adminApi
 ////////////////////////////////// replacing fetch with axios
 // const axiosBaseQuery =
 //   ({ baseUrl } = { baseUrl: REACT_APP_SERVER_URL }) =>

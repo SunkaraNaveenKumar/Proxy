@@ -92,3 +92,4 @@ export const {
   // usePostAccountDetailsMutation,
   useAllCoursesQuery,
 } = userApi;
+export default userApi

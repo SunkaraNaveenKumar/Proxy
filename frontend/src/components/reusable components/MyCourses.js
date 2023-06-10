@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import useAuth from '../custom hooks/useAuth'
-import { useDeleteCourseMutation, useGetAdminCoursesQuery } from '../../store/apis/adminApi'
-import loadingIcon from '../../assets/loading.svg'
-import { useNavigate } from 'react-router-dom'
-import { normalToaster } from '../../utils/helpers'
-import Logout from '../authentication/Logout'
-import Toaster from './Toaster'
+import React, { useEffect, useState } from "react";
+import useAuth from "../custom hooks/useAuth";
+import {
+  useDeleteCourseMutation,
+  useGetAdminCoursesQuery,
+} from "../../store/apis/adminApi";
+import loadingIcon from "../../assets/loading.svg";
+import { useNavigate } from "react-router-dom";
+import { normalToaster } from "../../utils/helpers";
+// import Logout from "../authentication/Logout";
+import Toaster from "./Toaster";
 const MyCourses = () => {
-  const { role } = useAuth()
-  const navigate = useNavigate()
+  const { role } = useAuth();
+  const navigate = useNavigate();
   //////////////////////////////// rtk query
-  const { data: myCourses, error: myCoursesError, isLoading: getMyCoursesLoading } = useGetAdminCoursesQuery()
+  const {
+    data: myCourses,
+    // error: myCoursesError,
+    isLoading: getMyCoursesLoading,
+  } = useGetAdminCoursesQuery();
   const [
     deleteCourse,
     { isLoading: deleteCourseLoading, data: deleteCourseData },
@@ -18,7 +25,6 @@ const MyCourses = () => {
   //////////////////////////////// stated
   const [scrollPosition, setScrollPosition] = useState(0);
   //////////////////////////////// useEffect
-
 
   useEffect(() => {
     if (deleteCourseData) {
@@ -34,90 +40,84 @@ const MyCourses = () => {
     setScrollPosition(window?.pageYOffset);
   };
   //////////////////////////////// rtk query
-  console.log(role, myCourses)
-  console.log("mycourses")
+  console.log(role, myCourses);
+  console.log("mycourses");
   if (getMyCoursesLoading || deleteCourseLoading) {
-    return <div className=" flex w-full h-screen justify-center items-center">
-      {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
-      <img src={loadingIcon} alt="loading"></img>
-    </div>
+    return (
+      <div className=" flex w-full h-screen justify-center items-center">
+        {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
+        <img src={loadingIcon} alt="loading"></img>
+      </div>
+    );
   }
   return (
     <>
       <Toaster />
-      {
+      {/* {
         myCoursesError?.status === 401 ? (
           <>
             <Logout error={myCoursesError} />
           </>
         ) : (
-          <>
-            <div className=" py-10 mt-16 flex flex-row flex-wrap gap-10 justify-center items-center">
-              {myCourses?.map((course) => {
-                const { title, description, price, imageUrl, _id } = course;
-                return (
-                  <div
-                    key={_id}
-                    className="w-80 bg-white flex flex-col gap-1 shadow-lg border border-black border-solid rounded-lg overflow-hidden"
+          <> */}
+      <div className=" py-10 mt-16 flex flex-row flex-wrap gap-10 justify-center items-center">
+        {myCourses?.map((course) => {
+          const { title, description, price, imageUrl, _id } = course;
+          return (
+            <div
+              key={_id}
+              className="w-80 bg-white flex flex-col gap-1 shadow-lg border border-black border-solid rounded-lg overflow-hidden"
+            >
+              <img src={imageUrl} alt={imageUrl} className=" w-full h-48"></img>
+              <div className="p-2 flex flex-col gap-y-2">
+                <p className="text-bold text-red-300 text-xl">{title}</p>
+                <p className="text-base text-bold">{description}</p>
+                <p className="text-xl text-bold text-blue-400">
+                  Price:{price}/RS
+                </p>
+                <div className="flex flex-row justify-center items-center w-full flex-wrap gap-2">
+                  {role === "admin" && (
+                    <>
+                      <button className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid">
+                        Enroll
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleDeleteCourse(_id);
+                        }}
+                        className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigate(`/admin/course/${_id}/lecture`);
+                        }}
+                        className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
+                      >
+                        add lecture
+                      </button>
+                    </>
+                  )}
+                  <button
+                    onClick={() => {
+                      navigate(`/admin/course/${_id}/lectures`);
+                    }}
+                    className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
                   >
-                    <img
-                      src={imageUrl}
-                      alt={imageUrl}
-                      className=" w-full h-48"
-                    ></img>
-                    <div className="p-2 flex flex-col gap-y-2">
-                      <p className="text-bold text-red-300 text-xl">
-                        {title}
-                      </p>
-                      <p className="text-base text-bold">{description}</p>
-                      <p className="text-xl text-bold text-blue-400">
-                        Price:{price}/RS
-                      </p>
-                      <div className="flex flex-row justify-center items-center w-full flex-wrap gap-2">
-                        {role === "admin" && (
-                          <>
-                            <button className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid">
-                              Enroll
-                            </button>
-                            <button
-                              onClick={() => {
-                                handleDeleteCourse(_id);
-                              }}
-                              className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
-                            >
-                              Delete
-                            </button>
-                            <button
-                              onClick={() => {
-                                navigate(`/admin/course/${_id}/lecture`);
-                              }}
-                              className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
-                            >
-                              add lecture
-                            </button>
-                          </>
-                        )}
-                        <button
-                          onClick={() => {
-                            navigate(`/admin/course/${_id}/lectures`);
-                          }}
-                          className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
-                        >
-                          View
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    View
+                  </button>
+                </div>
+              </div>
             </div>
-          </>
+          );
+        })}
+      </div>
+      {/* </>
         )
-      }
+      } */}
     </>
+  );
+};
 
-  )
-}
-
-export default MyCourses
-
+export default MyCourses;

@@ -5,7 +5,8 @@ import axios from "axios";
 import useAuth from "../custom hooks/useAuth";
 import loadingIcon from "../../assets/loading.svg";
 import ShowFile from "../reusable components/ShowFile";
-import { convertFilesToArr } from "../../utils/helpers";
+import { convertFilesToArr, normalToaster } from "../../utils/helpers";
+import Toaster from "../reusable components/Toaster";
 // import { useLocation } from "react-router-dom";
 const UserAccount = () => {
   // const location = useLocation()
@@ -172,7 +173,7 @@ const UserAccount = () => {
             adharImages,
             isSaved,
           });
-          alert("Profile Data saved Successfully");
+          normalToaster("Profile got successfully saved")
         }
       })
       .catch((err) => {
@@ -189,7 +190,8 @@ const UserAccount = () => {
     );
   }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-16">
+      <Toaster/>
       {errors && (
         <p className="text-red-500 text-bold text-base flex justify-center items-center mt-5">
           {errors}

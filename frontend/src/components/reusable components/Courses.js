@@ -3,7 +3,6 @@ import {
   useAllCoursesQuery,
 } from "../../store/apis/userApi";
 import SearchBar from "./SearchBar";
-import Logout from "../authentication/Logout";
 import CourseList from "./CourseList";
 import ErrorHandling from "../HOC/ErrorHandling";
 const Courses = () => {
@@ -12,7 +11,7 @@ const Courses = () => {
   ////////////////////////////////// redux apis and slices
   // const getAllCoursesQuery = useGetAllCoursesQuery();
   // const getAllCourses = useAllCoursesQuery();
-  const { data: courses, isLoading, error } = useAllCoursesQuery();
+  const { data: courses, isLoading } = useAllCoursesQuery();
 
   ///////////////////////////////////
   // console.log("data", courses);
@@ -36,7 +35,8 @@ const Courses = () => {
         </>
       ) : (
         <>
-          {error?.status === 401 ? (
+        <CourseList courses={courses} />
+          {/* {error?.status === 401 ? (
             <>
               <Logout error={error} />
             </>
@@ -44,7 +44,7 @@ const Courses = () => {
             <>
               <CourseList courses={courses} />
             </>
-          )}
+          )} */}
         </>
       )}
     </div>

@@ -148,15 +148,17 @@ adminController.deleteUser = async (req, res) => {
 adminController.deleteUserProfile = async (req, res) => {
   const { userId: id } = req.params;
   try {
-    const deleteProfileIdInUser = await users.findByIdAndUpdate(
-      id,
-      { $unset: { profileId: 1 } },
-      { new: true }
-    );
     const deletedUserProfile = await userProfiles.findOneAndDelete({
       userId: id,
     });
-    res.json(deletedUserProfile);
+    if (deletedUserProfile) {
+      const deleteProfileIdInUser = await users.findByIdAndUpdate(id, {
+        $unset: { profileId: 1 },
+      });
+      res.json(deletedUserProfile);
+    }else{
+      res.status(404).json({errors:{message:"This profile record is not found in the database to delete"}})
+    }
   } catch (err) {
     res.json(err);
   }
@@ -199,11 +201,11 @@ adminController.getLectures = async (req, res) => {
   }
 };
 adminController.getUserEnrolledCourses = async (req, res) => {
-  const { admin } = req
-  const { userId } = req.params
-  console.log(admin,userId);
+  const { admin } = req;
+  const { userId } = req.params;
+  console.log(admin, userId);
   try {
-    const user = await users.findById(userId)
+    const user = await users.findById(userId);
     if (user) {
       const userEnrolledCourses = await courses.aggregate([
         { $match: { adminId: admin._id } },
@@ -238,55 +240,65 @@ adminController.getUserEnrolledCourses = async (req, res) => {
       ]);
 
       // console.log("studentEnrolledCourses", studentEnrolledCourses)
-      res.json(userEnrolledCourses)
+      res.json(userEnrolledCourses);
     } else {
-      res.status(401).json("Cannot find user in the database")
+      res.status(401).json("Cannot find user in the database");
     }
-
   } catch (err) {
-    res.json(err)
+    res.json(err);
   }
-}
+};
 
 adminController.enrollStudentToCourse = async (req, res) => {
-  const { userId, courseId } = req.query
+  const { userId, courseId } = req.query;
   try {
     //  console.log(userId,courseId)
-    const alreadyEnrolled = await users.findOne({ _id:userId,courses: { $in: [courseId] } })
+    const alreadyEnrolled = await users.findOne({
+      _id: userId,
+      courses: { $in: [courseId] },
+    });
     // console.log(alreadyEnrolled)
     if (alreadyEnrolled) {
-      res.json({ message: "Already Enrolled" })
+      res.json({ message: "Already Enrolled" });
     } else {
-      const enrolled = await users.findByIdAndUpdate(userId, { $push: { courses: courseId } })
+      const enrolled = await users.findByIdAndUpdate(userId, {
+        $push: { courses: courseId },
+      });
       if (enrolled) {
-        res.json({ message: "successfully enrolled to the course" })
+        res.json({ message: "successfully enrolled to the course" });
       } else {
-        res.status(404).json({ errors: "something went wrong with enrolling the user" })
+        res
+          .status(404)
+          .json({ errors: "something went wrong with enrolling the user" });
       }
     }
-
   } catch (err) {
-    res.json(err)
+    res.json(err);
   }
-}
+};
 adminController.unEnrollStudentToCourse = async (req, res) => {
-  const { userId, courseId } = req.query
+  const { userId, courseId } = req.query;
   try {
-    const alreadyEnrolled = await users.findOne({_id:userId, courses: { $in: [courseId] } })
+    const alreadyEnrolled = await users.findOne({
+      _id: userId,
+      courses: { $in: [courseId] },
+    });
     if (alreadyEnrolled) {
-      const unEnroll = await users.findByIdAndUpdate(userId, { $pull: { courses: courseId } })
+      const unEnroll = await users.findByIdAndUpdate(userId, {
+        $pull: { courses: courseId },
+      });
       if (unEnroll) {
-        res.json({ message: "successfully unenrolled to the course" })
+        res.json({ message: "successfully unenrolled to the course" });
       } else {
-        res.status(404).json({ errors: "something went wrong with unenrolling the user" })
+        res
+          .status(404)
+          .json({ errors: "something went wrong with unenrolling the user" });
       }
     } else {
-      res.status(404).json({ message: "Already UnEnrolled" })
+      res.status(404).json({ message: "Already UnEnrolled" });
     }
-
+  } catch (err) {
+    res.json(err);
   }
-  catch (err) {
-    res.json(err)
-  }
-}
+};
 module.exports = adminController;

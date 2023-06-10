@@ -6,14 +6,14 @@ import clsx from 'clsx';
 import { useEnrollUserMutation, useUnEnrollUserMutation } from '../../store/apis/adminApi';
 import { normalToaster } from '../../utils/helpers';
 import loadingIcon from "../../assets/loading.svg"
-import Logout from '../authentication/Logout';
+// import Logout from '../authentication/Logout';
 
 
 const CourseList = ({ courses, type, userId }) => {
     const navigate = useNavigate();
     const { role } = useAuth();
-    const [enrollUser, { data: enrolledUserData, isLoading: isEnrolling, error: enrollError }] = useEnrollUserMutation()
-    const [unEnrollUser, { data: unEnrollUserData, isLoading: isUnEnrolling, error: unEnrollError }] = useUnEnrollUserMutation()
+    const [enrollUser, { data: enrolledUserData, isLoading: isEnrolling,  }] = useEnrollUserMutation()
+    const [unEnrollUser, { data: unEnrollUserData, isLoading: isUnEnrolling,  }] = useUnEnrollUserMutation()
     ///// useEffect
 
     useEffect(() => {
@@ -45,11 +45,11 @@ const CourseList = ({ courses, type, userId }) => {
         </div>
     }
     return (
-        <>
-            {(enrollError?.status === 401 || unEnrollError?.status === 401) ? (
-                <Logout />
-            ) : (
-                <>
+        // <>
+        //     {(enrollError?.status === 401 || unEnrollError?.status === 401) ? (
+        //         <Logout />
+        //     ) : (
+        //         <>
                     <div className=" py-10 flex flex-row flex-wrap gap-10 justify-center items-center">
                         <Toaster />
                         {courses?.map((course) => {
@@ -99,10 +99,10 @@ const CourseList = ({ courses, type, userId }) => {
                             );
                         })}
                     </div>
-                </>
-            )}
+        //         </>
+        //     )}
 
-        </>
+        // </>
 
     )
 }
