@@ -31,7 +31,7 @@ const AllUsers = () => {
   const [
     deleteUserProfile,
     {
-      data:deletedUserProfileData,
+      data: deletedUserProfileData,
       isLoading: deleteUserProfileLoading,
       // error: deleteUserProfileError
     },
@@ -52,14 +52,13 @@ const AllUsers = () => {
       if (Object.keys(deletedUserData)?.length > 0) {
         normalToaster("Successfully user has been deleted");
       }
-    }
-    else if(deletedUserProfileData){
+    } else if (deletedUserProfileData) {
       if (Object.keys(deletedUserProfileData)?.length > 0) {
         normalToaster("Successfully user profile has been deleted");
       }
     }
     // eslint-disable-next-line
-  }, [deletedUserData,deletedUserProfileData]);
+  }, [deletedUserData, deletedUserProfileData]);
   //////////////////////////////////////////helpers
 
   ////////////////////////////////////////////////////

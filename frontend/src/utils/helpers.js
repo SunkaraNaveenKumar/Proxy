@@ -13,12 +13,19 @@ export const normalToaster = (displayText) => {
   });
 };
 
-export const filteredUsersFunc = (users,value) => {
+export const filteredUsersFunc = (users, value) => {
   const filteredData = users?.filter((user) => {
     return (
       user.username.toLowerCase().includes(value.toLowerCase()) ||
       user.email.split("@")[0].toLowerCase().includes(value.toLowerCase())
     );
+  });
+  return filteredData;
+};
+
+export const filterCoursesFunc = (courses, value) => {
+  const filteredData = courses?.filter((course) => {
+    return course.title?.toLowerCase().includes(value.toLowerCase());
   });
   return filteredData;
 };

@@ -6,9 +6,10 @@ import {
 } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
 import { useNavigate } from "react-router-dom";
-import { normalToaster } from "../../utils/helpers";
+import { filterCoursesFunc, normalToaster } from "../../utils/helpers";
 // import Logout from "../authentication/Logout";
 import Toaster from "./Toaster";
+import SearchBar from "./SearchBar";
 const MyCourses = () => {
   const { role } = useAuth();
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const MyCourses = () => {
   ] = useDeleteCourseMutation();
   //////////////////////////////// stated
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [searchText, setSearchText] = useState("");
   //////////////////////////////// useEffect
 
   useEffect(() => {
@@ -51,8 +53,14 @@ const MyCourses = () => {
     );
   }
   return (
-    <>
+    <div className="flex flex-col justify-center items-center mt-20">
       <Toaster />
+      <SearchBar
+        searchText={searchText}
+        handleSearch={(e) => {
+          setSearchText(e.target.value);
+        }}
+      />
       {/* {
         myCoursesError?.status === 401 ? (
           <>
@@ -60,8 +68,8 @@ const MyCourses = () => {
           </>
         ) : (
           <> */}
-      <div className=" py-10 mt-16 flex flex-row flex-wrap gap-10 justify-center items-center">
-        {myCourses?.map((course) => {
+      <div className=" py-10 flex flex-row flex-wrap gap-10 justify-center items-center">
+        {filterCoursesFunc(myCourses, searchText)?.map((course) => {
           const { title, description, price, imageUrl, _id } = course;
           return (
             <div
@@ -116,7 +124,7 @@ const MyCourses = () => {
       {/* </>
         )
       } */}
-    </>
+    </div>
   );
 };
 
