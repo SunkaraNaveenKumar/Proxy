@@ -5,6 +5,8 @@ const _ = require("lodash");
 const turl = require("turl");
 const users = require("../models/users");
 const fetchFeilds = require("../helpers/fetchFeilds");
+const path = require("path");
+const fs = require("fs");
 const userProfiles = require("../models/userProfiles");
 const lectures = require("../models/lectures");
 const adminController = {};
@@ -155,9 +157,28 @@ adminController.deleteUserProfile = async (req, res) => {
       const deleteProfileIdInUser = await users.findByIdAndUpdate(id, {
         $unset: { profileId: 1 },
       });
+      function deleteFilesUploadsOfTheUser() {
+        console.log("delete uploads")
+        const destinationFolder = path.join("public", "uploads", id.toString());
+        if (fs.existsSync(destinationFolder)) {
+          // Remove the folder and its contents recursively
+          fs.rmdirSync(destinationFolder, { recursive: true });
+        } else {
+          res.status(404).send("Folder not found.");
+        }
+      }
+      deleteFilesUploadsOfTheUser()
+      console.log(deletedUserProfile);
       res.json(deletedUserProfile);
-    }else{
-      res.status(404).json({errors:{message:"This profile record is not found in the database to delete"}})
+    } else {
+      res
+        .status(404)
+        .json({
+          errors: {
+            message:
+              "This profile record is not found in the database to delete",
+          },
+        });
     }
   } catch (err) {
     res.json(err);
