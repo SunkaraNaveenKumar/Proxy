@@ -33,7 +33,7 @@ const Lectures = () => {
   }
   return (
     <div className="flex flex-row mt-16">
-      {lectures?.length ? (
+      {lectures?.length>0 ? (
         <div className="border flex flex-col border border-black  w-96 h-screen rounded-lg shadow-lg overflow-hidden">
           {getFolderNames()?.map((folder) => {
             return (
@@ -61,7 +61,7 @@ const Lectures = () => {
                 </Link>
               </>
             ) : (
-             "No Lectures or this course, ask admin to add the new lectures"
+             "No Lectures or added to this course, ask admin to add the new lectures"
             )}
           </p>
         </div>

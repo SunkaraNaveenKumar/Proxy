@@ -8,18 +8,19 @@ import { filterCoursesFunc } from "../../utils/helpers";
 import useAuth from "../custom hooks/useAuth";
 import { useGetAllCoursesQuery } from "../../store/apis/adminApi";
 const Courses = () => {
-  const {role}=useAuth()
+  const { role } = useAuth();
   ///////////////////////////////// react states
   const [searchText, setSearchText] = useState("");
   ////////////////////////////////// redux apis and slices
-  const getAllUserCourses = useAllCoursesQuery()
-  const getAllAdminCourses = useGetAllCoursesQuery()
-  const { data: courses, isLoading } = role === "admin"? getAllAdminCourses:getAllUserCourses
+  const getAllUserCourses = useAllCoursesQuery();
+  const getAllAdminCourses = useGetAllCoursesQuery();
+  const { data: courses, isLoading } =
+    role === "admin" ? getAllAdminCourses : getAllUserCourses;
   ///////////////////////////////////
   console.log("data", courses);
   /////////////////////////////////////useEffects
   /////////////////////////////////////helpers
-
+  const filteredCourses = filterCoursesFunc(courses, searchText);
   //////////////////////////////////////  event handlers
   const handleSearch = (e) => {
     const { value } = e.target;
@@ -39,16 +40,17 @@ const Courses = () => {
         </>
       ) : (
         <>
-          <CourseList courses={filterCoursesFunc(courses, searchText)} />
-          {/* {error?.status === 401 ? (
+          {filteredCourses.length > 0 ? (
             <>
-              <Logout error={error} />
+              <CourseList courses={filteredCourses} />
             </>
           ) : (
-            <>
-              <CourseList courses={courses} />
-            </>
-          )} */}
+            <div className="flex w-full h-screen justify-center items-center">
+              <p className="bg-red-100 p-5 rounded-lg shadow-lg text-base font-bold">
+                No Search Result found please Type some other course name
+              </p>
+            </div>
+          )}
         </>
       )}
     </div>

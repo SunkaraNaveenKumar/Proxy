@@ -24,7 +24,7 @@ const MyCourses = () => {
     // error: myCoursesError,
     isLoading: getMyCoursesLoading,
   } = getMyCourses;
-console.log("mycourses",myCourses)
+  console.log("mycourses", myCourses);
   const [
     deleteCourse,
     { isLoading: deleteCourseLoading, data: deleteCourseData },
@@ -32,6 +32,7 @@ console.log("mycourses",myCourses)
   //////////////////////////////// stated
   const [scrollPosition, setScrollPosition] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const filteredCourses = filterCoursesFunc(myCourses, searchText);
   //////////////////////////////// useEffect
 
   useEffect(() => {
@@ -49,7 +50,7 @@ console.log("mycourses",myCourses)
   };
   //////////////////////////////// rtk query
   // console.log(role, myCourses);
-  console.log("mycourses");
+  console.log("mycourses", myCourses);
   if (getMyCoursesLoading || deleteCourseLoading) {
     return (
       <div className=" flex w-full h-screen justify-center items-center">
@@ -74,62 +75,81 @@ console.log("mycourses",myCourses)
           </>
         ) : (
           <> */}
-      <div className=" py-10 flex flex-row flex-wrap gap-10 justify-center items-center">
-        {filterCoursesFunc(myCourses, searchText)?.map((course) => {
-          const { title, description, price, imageUrl, _id } = course;
-          return (
-            <div
-              key={_id}
-              className="w-80 bg-white flex flex-col gap-1 shadow-lg border border-black border-solid rounded-lg overflow-hidden"
-            >
-              <img src={imageUrl} alt={imageUrl} className=" w-full h-48"></img>
-              <div className="p-2 flex flex-col gap-y-2">
-                <p className="text-bold text-red-300 text-xl">{title}</p>
-                <p className="text-base text-bold">{description}</p>
-                <p className="text-xl text-bold text-blue-400">
-                  Price:{price}/RS
-                </p>
-                <div className="flex flex-row justify-center items-center w-full flex-wrap gap-2">
-                  {role === "admin" && (
-                    <>
-                      <button className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid">
-                        Enroll
-                      </button>
-                      <button
-                        onClick={() => {
-                          handleDeleteCourse(_id);
-                        }}
-                        className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
-                      >
-                        Delete
-                      </button>
-                      <button
-                        onClick={() => {
-                          navigate(`/admin/course/${_id}/lecture`);
-                        }}
-                        className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
-                      >
-                        add lecture
-                      </button>
-                    </>
-                  )}
-                  <button
-                    onClick={() => {
-                      navigate(`/${role}/course/${_id}/lectures`);
-                    }}
-                    className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
+      {myCourses.length > 0 ? (
+        <>
+          {filteredCourses.length > 0 ? (
+            <div className=" py-10 flex flex-row flex-wrap gap-10 justify-center items-center">
+              {filteredCourses?.map((course) => {
+                const { title, description, price, imageUrl, _id } = course;
+                return (
+                  <div
+                    key={_id}
+                    className="w-80 bg-white flex flex-col gap-1 shadow-lg border border-black border-solid rounded-lg overflow-hidden"
                   >
-                    View
-                  </button>
-                </div>
-              </div>
+                    <img
+                      src={imageUrl}
+                      alt={imageUrl}
+                      className=" w-full h-48"
+                    ></img>
+                    <div className="p-2 flex flex-col gap-y-2">
+                      <p className="text-bold text-red-300 text-xl">{title}</p>
+                      <p className="text-base text-bold">{description}</p>
+                      <p className="text-xl text-bold text-blue-400">
+                        Price:{price}/RS
+                      </p>
+                      <div className="flex flex-row justify-center items-center w-full flex-wrap gap-2">
+                        {role === "admin" && (
+                          <>
+                            <button className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid">
+                              Enroll
+                            </button>
+                            <button
+                              onClick={() => {
+                                handleDeleteCourse(_id);
+                              }}
+                              className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
+                            >
+                              Delete
+                            </button>
+                            <button
+                              onClick={() => {
+                                navigate(`/admin/course/${_id}/lecture`);
+                              }}
+                              className="shawdow-lg self-stretch w-20 rounded-lg bg-red-300 border border-black border-solid"
+                            >
+                              add lecture
+                            </button>
+                          </>
+                        )}
+                        <button
+                          onClick={() => {
+                            navigate(`/${role}/course/${_id}/lectures`);
+                          }}
+                          className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
+                        >
+                          View
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-      {/* </>
-        )
-      } */}
+          ) : (
+            <div className="flex w-full h-screen justify-center items-center">
+              <p className="bg-red-100 p-5 rounded-lg shadow-lg text-base font-bold">
+                No Search Result found please Type some other course name
+              </p>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="flex w-full h-screen justify-center items-center">
+          <p className="bg-red-100 p-5 rounded-lg shadow-lg text-base font-bold">
+            yet no courses are added to you , please contact admin to add course
+          </p>
+        </div>
+      )}
     </div>
   );
 };
