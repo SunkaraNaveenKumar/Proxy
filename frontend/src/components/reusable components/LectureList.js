@@ -36,7 +36,7 @@ const LectureList = ({ folderName, lectures, handleLecture, lecture }) => {
       <div className="">
         {toggle && (
           <>
-            {list.map((Item, index) => {
+            {list?.map((Item, index) => {
               const { _id, title } = Item;
               return (
                 <button

@@ -41,10 +41,10 @@ const AddCourse = () => {
     { data: courseData, error: addCourseError, isLoading: addCourseLoading },
   ] = useAddCourseMutation();
   ////////////////////////////////
-  console.log("courseData", courseData);
+  // console.log("courseData", courseData);
   ////////////////////////////////// useEffect
   useEffect(() => {
-    console.log("useEffcect");
+    // console.log("useEffcect");
     if (courseData) {
       // console.log("kwhfbkwefbwekfe", Object.keys(courseData));
       if (Object.keys(courseData)?.length) {

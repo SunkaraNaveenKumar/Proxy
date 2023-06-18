@@ -65,8 +65,8 @@ const Navigation = () => {
             <Route path="user" element={<MyCourses />}></Route>
             <Route path="admin" element={<MyCourses />}></Route>
           </Route>
-
           <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
+          <Route path="user/course/:courseId/lectures" element={<Lectures />}></Route>
           <Route path="user/account" element={<UserAccount />}></Route>
           <Route path="allcourses">
             <Route path="user" element={<Courses />}></Route>

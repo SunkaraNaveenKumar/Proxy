@@ -5,11 +5,16 @@ import CourseList from "./CourseList";
 import ErrorHandling from "../HOC/ErrorHandling";
 import { useState } from "react";
 import { filterCoursesFunc } from "../../utils/helpers";
+import useAuth from "../custom hooks/useAuth";
+import { useGetAllCoursesQuery } from "../../store/apis/adminApi";
 const Courses = () => {
+  const {role}=useAuth()
   ///////////////////////////////// react states
   const [searchText, setSearchText] = useState("");
   ////////////////////////////////// redux apis and slices
-  const { data: courses, isLoading } = useAllCoursesQuery();
+  const getAllUserCourses = useAllCoursesQuery()
+  const getAllAdminCourses = useGetAllCoursesQuery()
+  const { data: courses, isLoading } = role === "admin"? getAllAdminCourses:getAllUserCourses
   ///////////////////////////////////
   console.log("data", courses);
   /////////////////////////////////////useEffects

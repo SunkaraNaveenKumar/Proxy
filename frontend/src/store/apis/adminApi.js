@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-
 ///////////////////////////////////// rtk admin query
 export const adminApi = createApi({
   reducerPath: "adminApi",
@@ -19,7 +18,14 @@ export const adminApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["admin", "mycourses", "users", "lectures", "enrolledCourses"],
+  tagTypes: [
+    "admin",
+    "mycourses",
+    "users",
+    "lectures",
+    "enrolledCourses",
+    "courses",
+  ],
   endpoints: (builder) => ({
     adminLogin: builder.mutation({
       query: (formData) => ({
@@ -61,13 +67,17 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["users"],
     }),
+    getAllCourses: builder.query({
+      query: () => "/allcourses",
+      providesTags: ["courses"],
+    }),
     addCourse: builder.mutation({
       query: (formData) => ({
         url: "/admin/courses",
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["mycourses"],
+      invalidatesTags: ["mycourses", "courses", "enrolledCourses"],
     }),
     addLecture: builder.mutation({
       query: ({ formData, courseId }) => ({
@@ -82,9 +92,9 @@ export const adminApi = createApi({
         url: `/admin/course/${courseId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["mycourses"],
+      invalidatesTags: ["mycourses", "enrolledCourses", "courses"],
     }),
-    getLectures: builder.query({
+    getAdminLectures: builder.query({
       query: (courseId) => ({
         url: `/admin/course/${courseId}/lectures`,
         method: "GET",
@@ -94,23 +104,23 @@ export const adminApi = createApi({
     getUserEnrolledCourses: builder.query({
       query: (userId) => ({
         url: `/admin/user/${userId}/courses`,
-        method: "GET"
+        method: "GET",
       }),
-      providesTags:["enrolledCourses"]
+      providesTags: ["enrolledCourses"],
     }),
     enrollUser: builder.mutation({
-      query:({userId,courseId})=>({
-        url:`/admin/enroll?userId=${userId}&courseId=${courseId}`,
-       method:"PATCH"
+      query: ({ userId, courseId }) => ({
+        url: `/admin/enroll?userId=${userId}&courseId=${courseId}`,
+        method: "PATCH",
       }),
-      invalidatesTags:["enrolledCourses"]
+      invalidatesTags: ["enrolledCourses"],
     }),
-    unEnrollUser : builder.mutation({
-      query:({userId,courseId})=>({
-        url:`/admin/unenroll?userId=${userId}&courseId=${courseId}`,
-        method:"PATCH"
+    unEnrollUser: builder.mutation({
+      query: ({ userId, courseId }) => ({
+        url: `/admin/unenroll?userId=${userId}&courseId=${courseId}`,
+        method: "PATCH",
       }),
-      invalidatesTags:["enrolledCourses"]
+      invalidatesTags: ["enrolledCourses"],
     }),
   }),
 });
@@ -124,12 +134,13 @@ export const {
   useDeleteUserProfileMutation,
   useAddLectureMutation,
   useDeleteCourseMutation,
-  useGetLecturesQuery,
+  useGetAdminLecturesQuery,
   useGetUserEnrolledCoursesQuery,
   useEnrollUserMutation,
-  useUnEnrollUserMutation
+  useUnEnrollUserMutation,
+  useGetAllCoursesQuery,
 } = adminApi;
-export default adminApi
+export default adminApi;
 ////////////////////////////////// replacing fetch with axios
 // const axiosBaseQuery =
 //   ({ baseUrl } = { baseUrl: REACT_APP_SERVER_URL }) =>
@@ -253,6 +264,5 @@ export default adminApi
 // };
 
 // export default fetchBaseQuery;
-
 
 /////////////////////////////////// logout function

@@ -8,7 +8,7 @@ const authenticate = async (req, res, next) => {
     const data = jwt.verify(token, process.env.SECRETE_KEY);
     if (req.ip === data.ip) {
       if (data.role === "admin") {
-        const admin = await admins.findById(data._id);
+        const admin = await admins.findById(data?._id);
         if (admin) {
           req.admin = admin;
           next();
@@ -16,7 +16,7 @@ const authenticate = async (req, res, next) => {
           throw new Error({ errors: "Invalid admin" });
         }
       } else {
-        const user = await users.findById(data._id);
+        const user = await users.findById(data?._id);
         if (user) {
           req.user = user;
           next();
@@ -28,6 +28,7 @@ const authenticate = async (req, res, next) => {
       throw new Error({ errors: "User is Not Authorized please login again" });
     }
   } catch (err) {
+    // console.log("err",err)
     res.status(401).json(err);
   }
 };

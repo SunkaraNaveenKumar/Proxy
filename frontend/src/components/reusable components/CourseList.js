@@ -105,7 +105,7 @@ const CourseList = ({ courses, type, userId }) => {
                   <>
                     <button
                       onClick={() => {
-                        navigate(`/admin/course/${_id}/lectures`);
+                        navigate(`/${role}/course/${_id}/lectures`);
                       }}
                       className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
                     >

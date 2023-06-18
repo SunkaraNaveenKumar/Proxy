@@ -39,7 +39,7 @@ const AllUsers = () => {
   const [filteredUsersData, setFilteredUsersData] = useState([]);
   const [searchText, setSearchText] = useState("");
   let timer = useRef(null);
-  console.log("data", users);
+  // console.log("data", users);
   //////////////////////////////useEffects
   useEffect(() => {
     if (users) {

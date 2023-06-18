@@ -1,14 +1,19 @@
-import { useGetLecturesQuery } from "../../store/apis/adminApi";
+import { useGetAdminLecturesQuery } from "../../store/apis/adminApi";
 import { Link, useParams } from "react-router-dom";
 import LectureList from "./LectureList";
 import loadingIcon from "../../assets/loading.svg";
 import { useState } from "react";
+import useAuth from "../custom hooks/useAuth";
+import { useGetUserLecturesQuery } from "../../store/apis/userApi";
 const Lectures = () => {
   ////////////////////////////////////states
   const [lecture, setLecture] = useState({});
+  const { role } = useAuth();
   /////////////////////////////
   const { courseId } = useParams();
-  const { data: lectures, isLoading } = useGetLecturesQuery(courseId);
+  const getAdminLectures = useGetAdminLecturesQuery(courseId)
+  const getUserLectures = useGetUserLecturesQuery(courseId)
+  const { data: lectures, isLoading } = role === "admin"? getAdminLectures : getUserLectures
   console.log("lectures", lectures);
   ////////////////////////////////// helpers
   const getFolderNames = () => {
@@ -19,7 +24,7 @@ const Lectures = () => {
   const handleLecture = (lecture) => {
     setLecture(lecture);
   };
-  console.log(lecture.assetUrl);
+  // console.log(lecture.assetUrl);
   //////////////////////////////////
   if (isLoading) {
     <div className=" flex w-full h-screen justify-center items-center">
@@ -45,13 +50,19 @@ const Lectures = () => {
       ) : (
         <div className="flex justify-center items-center h-screen w-full">
           <p className="bg-red-200 p-10 rounded-lg shadow-lg">
-            No Lectures found for this course please add it{" "}
-            <Link
-              to={`/admin/course/${courseId}/lecture`}
-              className="text-blue-400"
-            >
-              CLick here to add lecture
-            </Link>
+            {role === "admin" ? (
+              <>
+                No Lectures found for this course please add it{" "}
+                <Link
+                  to={`/admin/course/${courseId}/lecture`}
+                  className="text-blue-400"
+                >
+                  CLick here to add lecture
+                </Link>
+              </>
+            ) : (
+             "No Lectures or this course, ask admin to add the new lectures"
+            )}
           </p>
         </div>
       )}

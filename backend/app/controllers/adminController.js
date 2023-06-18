@@ -10,7 +10,8 @@ const fs = require("fs");
 const userProfiles = require("../models/userProfiles");
 const lectures = require("../models/lectures");
 const adminController = {};
-
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 adminController.login = async (req, res) => {
   const { body } = req;
   console.log("body", body);
@@ -68,29 +69,36 @@ adminController.getMyCourses = async (req, res) => {
   const { admin } = req;
   //   console.log("admin", admin);
   try {
-    const id = admin._id;
-    const allCourses = await courses
-      .find({ adminId: id })
-      .sort({ createdAt: "descending" });
-    // console.log("allCourses", allCourses);
-    // const newArr = [];
-    // allCourses.forEach((ele) => {
-    //   newArr.push(
-    //     _.pick(ele, [])
-    //   );
-    // });
-    // console.log("allCourses", allCourses);
-    res.json(
-      fetchFeilds(allCourses, [
-        "title",
-        "description",
-        "imageUrl",
-        "price",
-        "adminId",
-        "_id",
-        "createdAt",
-      ])
-    );
+    const id = admin?._id;
+    const findAdmin = await admins.findById(id);
+    if (findAdmin) {
+      const allCourses = await courses
+        .find({ adminId: id })
+        .sort({ createdAt: "descending" });
+      // console.log("allCourses", allCourses);
+      // const newArr = [];
+      // allCourses.forEach((ele) => {
+      //   newArr.push(
+      //     _.pick(ele, [])
+      //   );
+      // });
+      // console.log("allCourses", allCourses);
+      res.json(
+        fetchFeilds(allCourses, [
+          "title",
+          "description",
+          "imageUrl",
+          "price",
+          "adminId",
+          "_id",
+          "createdAt",
+        ])
+      );
+    } else {
+      res
+        .status(404)
+        .json({ errors: "Admin record is not found in the data base" });
+    }
   } catch (err) {
     res.json(err);
   }
@@ -122,8 +130,18 @@ adminController.addLecture = async (req, res) => {
   body.adminId = admin._id;
   console.log(body);
   try {
-    const addLectureData = await new lectures(body).save();
-    res.json(addLectureData);
+    const findCourseOfAdmin = await courses.findOne({
+      _id: courseId,
+      adminId: admin._id,
+    });
+    if (findCourseOfAdmin) {
+      const addLectureData = await new lectures(body).save();
+      res.json(addLectureData);
+    } else {
+      res
+        .status(404)
+        .json({ errors: "you cannot add lectures to this course" });
+    }
   } catch (err) {
     if (err.name === "ValidationError") {
       res.status(400).json({ errors: err.errors });
@@ -158,7 +176,7 @@ adminController.deleteUserProfile = async (req, res) => {
         $unset: { profileId: 1 },
       });
       function deleteFilesUploadsOfTheUser() {
-        console.log("delete uploads")
+        console.log("delete uploads");
         const destinationFolder = path.join("public", "uploads", id.toString());
         if (fs.existsSync(destinationFolder)) {
           // Remove the folder and its contents recursively
@@ -167,18 +185,15 @@ adminController.deleteUserProfile = async (req, res) => {
           res.status(404).send("Folder not found.");
         }
       }
-      deleteFilesUploadsOfTheUser()
+      deleteFilesUploadsOfTheUser();
       console.log(deletedUserProfile);
       res.json(deletedUserProfile);
     } else {
-      res
-        .status(404)
-        .json({
-          errors: {
-            message:
-              "This profile record is not found in the database to delete",
-          },
-        });
+      res.status(404).json({
+        errors: {
+          message: "This profile record is not found in the database to delete",
+        },
+      });
     }
   } catch (err) {
     res.json(err);
@@ -195,17 +210,22 @@ adminController.deleteCourse = async (req, res) => {
       _id: id,
       adminId: admin?._id,
     });
-    const deletedLectures = await lectures.deleteMany({
-      courseId: id,
-      adminId: admin._id,
-    });
-    // console.log("deletedCourse", deletedCourse);
-    if (!deletedCourse) {
-      res.status(404).json("This course not found in your records");
-    } else {
-      console.log("deletedLectures", deletedLectures);
+    if (deletedCourse) {
+      const deletedLectures = await lectures.deleteMany({
+        courseId: id,
+        adminId: admin._id,
+      });
+      console.log("deletedCourse", deletedCourse);
+      await users.updateMany(
+        {},
+        { $pull: { "courses.courseId": deletedCourse._id } }
+      );
       res.json(_.pick(deletedCourse, ["_id", "adminId"]));
+    } else {
+      res.status(404).json({ errors: "Course Not found to be deleted" });
     }
+
+    // console.log("deletedCourse", deletedCourse)
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -213,11 +233,33 @@ adminController.deleteCourse = async (req, res) => {
 };
 adminController.getLectures = async (req, res) => {
   const { courseId: id } = req.params;
+  console.log("id",id);
+  const { admin } = req;
   // const {admin} = req
   try {
-    const lecturesData = await lectures.find({ courseId: id });
+    const lecturesData = await lectures.aggregate([
+      { $match: { courseId: id? new ObjectId(id):''} },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          assetType: 1,
+          assetUrl: {
+            $cond: {
+              if: { $eq: ["$adminId", admin?._id] },
+              then: "$assetUrl",
+              else: "",
+            },
+          },
+          folderTitle: 1,
+        },
+      },
+    ]);
+    // const lecturesData = await lectures.find({adminId:admin._id, courseId:id})
+    console.log("lecturesData", lecturesData);
     res.json(lecturesData);
   } catch (err) {
+    console.log("adminerr",err);
     res.json(err);
   }
 };
@@ -257,7 +299,7 @@ adminController.getUserEnrolledCourses = async (req, res) => {
             // users:0
           },
         },
-        // { $sort: { createdAt: -1 } },
+        { $sort: { createdAt: -1 } },
       ]);
 
       // console.log("studentEnrolledCourses", studentEnrolledCourses)
@@ -276,7 +318,7 @@ adminController.enrollStudentToCourse = async (req, res) => {
     //  console.log(userId,courseId)
     const alreadyEnrolled = await users.findOne({
       _id: userId,
-      courses: { $in: [courseId] },
+      courses: courseId,
     });
     // console.log(alreadyEnrolled)
     if (alreadyEnrolled) {

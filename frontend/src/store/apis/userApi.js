@@ -7,7 +7,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_SERVER_URL,
     prepareHeaders: (headers, { getState }) => {
-      console.log("state", getState());
+      // console.log("state", getState());
       const token = localStorage.getItem("token");
       headers.set("authorization", token);
       return headers;
@@ -22,7 +22,7 @@ export const userApi = createApi({
     //   return response.data;
     // },
   }),
-  tagTypes: ["User", "Profile", "courses"],
+  tagTypes: ["User", "Profile", "courses", "mycourses","lectures"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (formData) => ({
@@ -81,6 +81,17 @@ export const userApi = createApi({
       }),
       providesTags: ["courses"],
     }),
+    getUserMyCourses: builder.query({
+      query: () => ({
+        url: "/user/mycourses",
+        method: "GET",
+      }),
+      providesTags: ["mycourses"],
+    }),
+    getUserLectures:builder.query({
+      query:(courseId)=>`/user/course/${courseId}/lectures`,
+      providesTags:["lectures"]
+    })
   }),
 });
 export const {
@@ -91,5 +102,7 @@ export const {
   useGetAccountDetailsQuery,
   // usePostAccountDetailsMutation,
   useAllCoursesQuery,
+  useGetUserMyCoursesQuery,
+  useGetUserLecturesQuery
 } = userApi;
-export default userApi
+export default userApi;

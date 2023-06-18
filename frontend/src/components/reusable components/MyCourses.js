@@ -10,15 +10,21 @@ import { filterCoursesFunc, normalToaster } from "../../utils/helpers";
 // import Logout from "../authentication/Logout";
 import Toaster from "./Toaster";
 import SearchBar from "./SearchBar";
+import { useGetUserMyCoursesQuery } from "../../store/apis/userApi";
 const MyCourses = () => {
   const { role } = useAuth();
   const navigate = useNavigate();
   //////////////////////////////// rtk query
+  const getAdminCourses = useGetAdminCoursesQuery();
+  const getUserCourses = useGetUserMyCoursesQuery();
+
+  const getMyCourses = role === "admin" ? getAdminCourses : getUserCourses;
   const {
     data: myCourses,
     // error: myCoursesError,
     isLoading: getMyCoursesLoading,
-  } = useGetAdminCoursesQuery();
+  } = getMyCourses;
+console.log("mycourses",myCourses)
   const [
     deleteCourse,
     { isLoading: deleteCourseLoading, data: deleteCourseData },
@@ -42,7 +48,7 @@ const MyCourses = () => {
     setScrollPosition(window?.pageYOffset);
   };
   //////////////////////////////// rtk query
-  console.log(role, myCourses);
+  // console.log(role, myCourses);
   console.log("mycourses");
   if (getMyCoursesLoading || deleteCourseLoading) {
     return (
@@ -109,7 +115,7 @@ const MyCourses = () => {
                   )}
                   <button
                     onClick={() => {
-                      navigate(`/admin/course/${_id}/lectures`);
+                      navigate(`/${role}/course/${_id}/lectures`);
                     }}
                     className="shawdow-lg self-stretch w-20 rounded-lg bg-blue-300 border border-black border-solid"
                   >

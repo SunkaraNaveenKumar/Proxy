@@ -1,6 +1,6 @@
 const { tokenGeneration } = require("../helpers/tokenGeneration");
 const users = require("../models/users");
-const userProfiles = require("../models/userProfiles")
+const userProfiles = require("../models/userProfiles");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 // const sendGridTransport = require("nodemailer-sendgrid-transport");
@@ -9,6 +9,9 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const courses = require("../models/courses");
 const fetchFeilds = require("../helpers/fetchFeilds");
+const lectures = require("../models/lectures");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types; 
 /////////////////////////////////
 // const transporter = nodemailer.createTransport(
 //   sendGridTransport({
@@ -81,15 +84,24 @@ userController.login = async (req, res) => {
 //       res.status(400).json(err);
 //     });
 // };
-//////////////////////////////// get all courses 
-userController.getAllCourses =async(req,res)=>{
-  try{
-    const allCourses = await courses.find().sort({createdAt:"descending"})
-    res.json(fetchFeilds(allCourses,["title","description","imageUrl","price","_id","createdAt"]))
-  }catch(err){
-    res.json(err)
+//////////////////////////////// get all courses
+userController.getAllCourses = async (req, res) => {
+  try {
+    const allCourses = await courses.find().sort({ createdAt: "descending" });
+    res.json(
+      fetchFeilds(allCourses, [
+        "title",
+        "description",
+        "imageUrl",
+        "price",
+        "_id",
+        "createdAt",
+      ])
+    );
+  } catch (err) {
+    res.json(err);
   }
-}
+};
 /////////////////////////////////////////////////////// send forgot password link
 userController.sendForgotPasswordLink = async (req, res) => {
   const { body } = req;
@@ -160,26 +172,86 @@ userController.changePassword = async (req, res) => {
   }
 };
 
-userController.addUserProfile=async(req,res)=>{
- 
-  const body = req.body 
-  console.log("body",body)
-  try{
-    const {updatedUser,userProfile} = await userProfiles.addProfile(req)
-    res.json(userProfile)
-  }catch(err){
-    res.json(err)
+userController.addUserProfile = async (req, res) => {
+  const body = req.body;
+  console.log("body", body);
+  try {
+    const { updatedUser, userProfile } = await userProfiles.addProfile(req);
+    res.json(userProfile);
+  } catch (err) {
+    res.json(err);
   }
-}
+};
 
-userController.getUserAccount= async (req,res)=>{
-const user = req.user 
-// console.log(user)
-try{
-  const userAccount = await userProfiles.findOne({_id: user.profileId, userId:user._id})
-  res.json(_.pick(userAccount,['fullName',"address","phoneNumber","adharImages","panImages","isSaved",""]))
-}catch(err){
-  res.json({errors:"No user Profile Found"})
-}
-}
+userController.getUserAccount = async (req, res) => {
+  const user = req.user;
+  // console.log(user)
+  try {
+    const userAccount = await userProfiles.findOne({
+      _id: user.profileId,
+      userId: user._id,
+    });
+    res.json(
+      _.pick(userAccount, [
+        "fullName",
+        "address",
+        "phoneNumber",
+        "adharImages",
+        "panImages",
+        "isSaved",
+        "",
+      ])
+    );
+  } catch (err) {
+    res.json({ errors: "No user Profile Found" });
+  }
+};
+
+userController.getMyCourses = async (req, res) => {
+  const _id = req.user?._id;
+  // console.log("user", courses);
+  try {
+    const findUser = await users.findById(_id);
+    if (findUser) {
+      const myCourses = await courses.find({ _id: { $in: findUser.courses } });
+      res.json(myCourses);
+    } else {
+      res.status(404).json({ errors: "User Record not found" });
+    }
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+userController.getLectures = async (req, res) => {
+  const { user } = req;
+  // console.log("user",user);
+  const { courseId:id } = req.params;
+  try {
+    const isEnrolledToCourse = await users.findOne({_id:user.id})
+    const findLectures = await lectures.aggregate([
+      { $match: { courseId: new ObjectId(id) } },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          assetType: 1,
+          folderTitle:1,
+          assetUrl: {
+            $cond: {
+              if: { $in: ["$courseId", user?.courses] },
+              then: "$assetUrl",
+              else: "",
+            },
+          },
+        },
+      },
+    ]);
+    console.log("userLectures", findLectures);
+    res.json(findLectures);
+  } catch (err) {
+    console.log("usererr",err)
+    res.json(err);
+  }
+};
 module.exports = userController;

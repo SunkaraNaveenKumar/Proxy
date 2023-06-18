@@ -8,7 +8,7 @@ import { isRejectedWithValue } from "@reduxjs/toolkit";
 import jwt_decode from "jwt-decode";
 const rtkQueryErrorLogger = (api) => (store) => (next) => (action) => {
   if (isRejectedWithValue(action)) {
-    console.log(action);
+    // console.log(action);
     if (
       action?.payload?.status === 401 ||
       action?.payload?.originalStatus === 401 ||
