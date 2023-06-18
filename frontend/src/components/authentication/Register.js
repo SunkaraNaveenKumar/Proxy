@@ -122,7 +122,7 @@ const Register = () => {
           className="w-20 rounded-lg h-10 bg-blue-200 shadow-lg"
         ></input>
         <p>
-          Already Logged In{" "}
+          Already Logged In ?{" "}
           <Link
             to="/user/login"
             className="text-blue-500 underline underline-offset-4"

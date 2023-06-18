@@ -39,7 +39,7 @@ userController.register = async (req, res) => {
       const errMessage = Object.keys(err["keyValue"]).includes("email");
       res.json({
         errors: errMessage
-          ? "This email already exists"
+          ? "This email already exists please login"
           : "This username alredy exists",
       });
     } else {

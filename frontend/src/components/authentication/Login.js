@@ -123,14 +123,14 @@ const Login = () => {
           className="w-20 rounded-lg h-10 bg-blue-200 shadow-lg"
         ></input>
         {!isAdminLogin && (
-          <div className="flex flex-col gap-5 bg-red-100 w-full font-bold">
+          <div className="flex flex-col rounded-lg p-2 gap-5 bg-red-100 w-full font-bold">
             <p>
-              No account?{" "}
+              New User ?{" "}
               <Link
                 to="/user/register"
                 className="text-blue-500 underline underline-offset-4"
               >
-                Create New Account
+                Sign Up
               </Link>
             </p>
             <p>
