@@ -11,7 +11,7 @@ const Header = () => {
   const { role } = useAuth();
   console.log("header");
   return (
-    <div className="fixed w-full top-0 left-0">
+    <div className="fixed z-10 w-full top-0 left-0">
       <div className=" w-full flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
         <div className="">
           <img

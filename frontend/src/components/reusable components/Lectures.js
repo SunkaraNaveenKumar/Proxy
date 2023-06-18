@@ -35,9 +35,9 @@ const Lectures = () => {
     );
   }
   return (
-    <div className="flex flex-row mt-16">
+    <div className="flex flex-row mt-20">
       {lectures?.length > 0 ? (
-        <div className="border flex flex-col border border-black  w-96 h-screen rounded-lg shadow-lg overflow-hidden">
+        <div className="border flex flex-col border border-black  w-96 min-h-screen rounded-lg shadow-lg overflow-hidden">
           {getFolderNames()?.map((folder) => {
             return (
               <LectureList
@@ -70,8 +70,8 @@ const Lectures = () => {
         </div>
       )}
       {lecture.assetUrl && (
-        <div className="flex justify-center items-center">
-          <video controls>
+        <div className=" p-5 grow">
+          <video controls className="w-full h-96">
             <source src={lecture.assetUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
