@@ -7,8 +7,6 @@ const Home = () => {
   return (
     <div className="mt-[200px]">
    Home
-   sdcjhsdbcdshbcdscbhwvewve
-   vrevrekvbervkr
     </div>
   );
 };
