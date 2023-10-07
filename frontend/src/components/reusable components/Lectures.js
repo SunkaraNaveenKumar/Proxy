@@ -2,7 +2,7 @@ import { useGetAdminLecturesQuery } from "../../store/apis/adminApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LectureList from "./LectureList";
 import loadingIcon from "../../assets/loading.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../custom hooks/useAuth";
 import { useGetUserLecturesQuery } from "../../store/apis/userApi";
 const Lectures = () => {
