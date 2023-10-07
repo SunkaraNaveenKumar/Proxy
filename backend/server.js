@@ -30,5 +30,5 @@ app.use(function (req, res, next) {
 });
 app.use(router);
 app.listen(port, () => {
-  console.log("server is running");
+  console.log("server is running",port);
 });
