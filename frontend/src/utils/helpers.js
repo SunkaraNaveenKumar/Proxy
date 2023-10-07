@@ -29,3 +29,9 @@ export const filterCoursesFunc = (courses, value) => {
   });
   return filteredData;
 };
+ export const getFilteredLectures =(lectures,folderName)=>{
+  const getLecturesByfolderTitle = lectures.filter((folder) => {
+    return folder.folderTitle === folderName;
+  });
+  return getLecturesByfolderTitle
+ }

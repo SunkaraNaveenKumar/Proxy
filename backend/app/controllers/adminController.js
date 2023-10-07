@@ -231,6 +231,42 @@ adminController.deleteCourse = async (req, res) => {
     res.json(err);
   }
 };
+////////////////////////////////////////delete lecture
+adminController.deleteLecture=async(req,res)=>{
+  const {admin}=req
+  const {courseId:id,lectureId}=req.params
+  // console.log("adminId",admin?._id)
+  // console.log("courseId",id)
+  // console.log("lectureId",lectureId)
+  try{
+    const deletedLecture = await lectures.findOneAndDelete({adminId:admin._id,courseId:id,_id:lectureId})
+    if(deletedLecture){
+      res.json(deletedLecture)
+      // console.log(deletedLecture);
+    }else{
+      // console.log("wjncejwkwewefewfewfew")
+      res.status(404).json({errors:"Cannot find this lecture to delete in database"})
+    }
+
+  }catch(err){
+    res.json(err)
+  }
+}
+////////////////////////////////////////// delete whole lecture folder 
+adminController.deleteLectureFolder=async(req,res)=>{
+  const {admin}=req
+  const {courseId:id,folderName}=req.params
+  console.log("courseId",id)
+  console.log("folderNAme",folderName)
+  try{
+    const deletedLectures = await lectures.deleteMany({adminId:admin._id,courseId:id,folderTitle:folderName})
+    console.log('deletedLectures',deletedLectures);
+    res.json(deletedLectures)
+  }catch(err){
+    res.json(err)
+  }
+}
+////////////////////////////////////////// get lectures
 adminController.getLectures = async (req, res) => {
   const { courseId: id } = req.params;
   console.log("id",id);

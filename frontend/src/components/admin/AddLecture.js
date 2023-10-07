@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../reusable components/Form";
 import { useAddLectureMutation } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
@@ -33,6 +33,7 @@ const initialLectureState = {
   },
 };
 const AddLecture = () => {
+  const navigate = useNavigate()
   const { courseId } = useParams();
   const [lecture, setLecture] = useState(initialLectureState);
   console.log(courseId);
@@ -83,6 +84,7 @@ const AddLecture = () => {
     addLecture({ formData, courseId });
   };
   const handleCancel = () => {
+    navigate(`/admin/course/${courseId}/lectures`)
     setLecture(initialLectureState);
   };
   if (isLoading) {

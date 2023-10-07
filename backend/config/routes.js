@@ -30,4 +30,6 @@ router.delete("/admin/course/:courseId",authenticate,authorizeUser(["admin"]),ad
 router.delete("/admin/user/profile/:userId",authenticate,authorizeUser(["admin"]),adminController.deleteUserProfile)
 router.patch("/admin/enroll",authenticate,authorizeUser(["admin"]),adminController.enrollStudentToCourse)
 router.patch("/admin/unenroll",authenticate,authorizeUser(["admin"]),adminController.unEnrollStudentToCourse)
+router.delete("/admin/course/:courseId/lecture/:lectureId",authenticate,authorizeUser(["admin"]),adminController.deleteLecture)
+router.delete("/admin/course/:courseId/lectureFolderName/:folderName",authenticate,authorizeUser(["admin"]),adminController.deleteLectureFolder)
 module.exports=router

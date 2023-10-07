@@ -122,6 +122,20 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["enrolledCourses"],
     }),
+    deleteLecture:builder.mutation({
+      query:({courseId,lectureId})=>({
+        url:`/admin/course/${courseId}/lecture/${lectureId}`,
+        method:"DELETE"
+      }),
+      invalidatesTags:["lectures"]
+    }),
+    deleteLectureFolder : builder.mutation({
+      query:({courseId,folderName})=>({
+        url:`/admin/course/${courseId}/lectureFolderName/${folderName}`,
+        method:"DELETE"
+      }),
+      invalidatesTags:["lectures"]
+    })
   }),
 });
 
@@ -139,6 +153,8 @@ export const {
   useEnrollUserMutation,
   useUnEnrollUserMutation,
   useGetAllCoursesQuery,
+  useDeleteLectureMutation,
+  useDeleteLectureFolderMutation
 } = adminApi;
 export default adminApi;
 ////////////////////////////////// replacing fetch with axios
