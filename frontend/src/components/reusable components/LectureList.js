@@ -61,7 +61,7 @@ const LectureList = ({
         normalToaster("Lecture Folder Successfully deleted");
       }
     }
-  }, [deletedLectureFolder,deletedLecture]);
+  }, [deletedLectureFolder,deletedLecture,folderName,lectures]);
 
   if (isLoading || isdeletingLectureFolder) {
     return (

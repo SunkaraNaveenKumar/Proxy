@@ -4,13 +4,7 @@ const Home = () => {
   useEffect(() => {
     console.log("home");
   }, []);
-  return (
-    <div className="mt-[200px]">
-   Home
-   sdcjhsdbcdshbcdscbhwvewve
-   vrevrekvbervkr
-    </div>
-  );
+  return <div className="mt-[200px]">Home</div>;
 };
 
 export default Home;
