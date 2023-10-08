@@ -23,6 +23,8 @@ import Lectures from "./reusable components/Lectures";
 import MyCourses from "./reusable components/MyCourses";
 import EnrolledCourses from "./admin/EnrolledCourses";
 import PublicRoutes from "./reusable components/PublicRoutes";
+import AboutUs from "./reusable components/AboutUs";
+import ContactUs from "./reusable components/ContactUs";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,8 @@ const Navigation = () => {
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/user/about" element={<AboutUs />}></Route>
+        <Route path="/user/contact" element={<ContactUs />}></Route>
         <Route path="*" element={<Page404 />}></Route>
         {/* public routes */}
         <Route element={<PublicRoutes />}>
@@ -57,7 +61,6 @@ const Navigation = () => {
           </Route>
           <Route path="admin/login" element={<Login />}></Route>
           <Route path="user/contacts" element={<UserContacts />}></Route>
-
         </Route>
         {/* private Routes */}
         <Route element={<ProtectedRoutes allowedRoles={["user", "admin"]} />}>
@@ -65,8 +68,14 @@ const Navigation = () => {
             <Route path="user" element={<MyCourses />}></Route>
             <Route path="admin" element={<MyCourses />}></Route>
           </Route>
-          <Route path="admin/course/:courseId/lectures" element={<Lectures />}></Route>
-          <Route path="user/course/:courseId/lectures" element={<Lectures />}></Route>
+          <Route
+            path="admin/course/:courseId/lectures"
+            element={<Lectures />}
+          ></Route>
+          <Route
+            path="user/course/:courseId/lectures"
+            element={<Lectures />}
+          ></Route>
           <Route path="user/account" element={<UserAccount />}></Route>
           <Route path="allcourses">
             <Route path="user" element={<Courses />}></Route>
@@ -79,7 +88,10 @@ const Navigation = () => {
         </Route>
         <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
           <Route path="admin/allusers" element={<AllUsers />}></Route>
-          <Route path="admin/user/:userId/courses" element={<EnrolledCourses />}></Route>
+          <Route
+            path="admin/user/:userId/courses"
+            element={<EnrolledCourses />}
+          ></Route>
           <Route path="admin/addcourse" element={<AddCourse />}></Route>
 
           <Route
