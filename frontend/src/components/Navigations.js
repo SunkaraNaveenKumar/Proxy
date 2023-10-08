@@ -23,8 +23,11 @@ import Lectures from "./reusable components/Lectures";
 import MyCourses from "./reusable components/MyCourses";
 import EnrolledCourses from "./admin/EnrolledCourses";
 import PublicRoutes from "./reusable components/PublicRoutes";
-import AboutUs from "./reusable components/AboutUs";
+import AboutUsWhoWeAre from "./reusable components/about us/AboutUsWhoWeAre";
 import ContactUs from "./reusable components/ContactUs";
+import AboutUsBoardOfDirectors from "./reusable components/about us/AboutUsBoardOfDirectors";
+import AboutUsMileStone from "./reusable components/about us/AboutUsMailStone";
+import AboutUsPartnerships from "./reusable components/about us/AboutUsPartnerships";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -45,7 +48,22 @@ const Navigation = () => {
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/user/about" element={<AboutUs />}></Route>
+        <Route
+          path="/user/about/who-we-are"
+          element={<AboutUsWhoWeAre />}
+        ></Route>
+        <Route
+          path="/user/about/board-of-directors"
+          element={<AboutUsBoardOfDirectors />}
+        ></Route>
+        <Route
+          path="/user/about/mile-stone"
+          element={<AboutUsMileStone />}
+        ></Route>
+        <Route
+          path="/user/about/partnerships"
+          element={<AboutUsPartnerships />}
+        ></Route>
         <Route path="/user/contact" element={<ContactUs />}></Route>
         <Route path="*" element={<Page404 />}></Route>
         {/* public routes */}
