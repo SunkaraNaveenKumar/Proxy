@@ -46,19 +46,19 @@ const Navigation = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route
-          path="/user/about/who-we-are"
+          path="/about/who-we-are"
           element={<AboutUsWhoWeAre />}
         ></Route>
         <Route
-          path="/user/about/board-of-directors"
+          path="/about/board-of-directors"
           element={<AboutUsBoardOfDirectors />}
         ></Route>
         <Route
-          path="/user/about/mile-stone"
+          path="/about/mile-stone"
           element={<AboutUsMileStone />}
         ></Route>
         <Route
-          path="/user/about/partnerships"
+          path="/about/partnerships"
           element={<AboutUsPartnerships />}
         ></Route>
         <Route path="/user/contact" element={<ContactUs />}></Route>
