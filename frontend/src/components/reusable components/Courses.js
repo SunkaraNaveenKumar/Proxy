@@ -34,7 +34,7 @@ const Courses = () => {
       <SearchBar searchText={searchText} handleSearch={handleSearch} />
       {isLoading ? (
         <>
-          <div className=" flex w-full h-screen justify-center items-center">
+          <div className=" flex w-full h-[80vh] justify-center items-center">
             <img src={loadingIcon} alt="loading"></img>
           </div>
         </>
@@ -45,7 +45,7 @@ const Courses = () => {
               <CourseList courses={filteredCourses} />
             </>
           ) : (
-            <div className="flex w-full h-screen justify-center items-center">
+            <div className="flex w-full h-[80vh]  justify-center items-center">
               <p className="bg-red-100 p-5 rounded-lg shadow-lg text-base font-bold">
                 No Search Result found please Type some other course name
               </p>

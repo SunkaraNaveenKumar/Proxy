@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "../footer/Footer";
 const AboutUsBoardOfDirectors = () => {
   const banner =
     "https://www.infovision.com/sites/default/files/images/banner/cover/2022-01/InfoVision%20Bannerr_option%205%20copy%203.png";
@@ -32,7 +31,7 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-4xl mb-2 font-serif">Naveen Sunkara</h1>
+            <h1 className="text-3xl mb-2 font-serif">Naveen Sunkara</h1>
             <h2 className="">CEO</h2>
           </div>
         </div>
@@ -45,7 +44,7 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-4xl mb-2 font-serif">Akbar Ali Khan</h1>
+            <h1 className="text-3xl mb-2 font-serif">Akbar Ali Khan</h1>
             <h2 className="">Marketing Manager</h2>
           </div>
         </div>
@@ -58,12 +57,11 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-4xl mb-2 font-serif">Naveen Sunkara</h1>
+            <h1 className="text-3xl mb-2 font-serif">Naveen Sunkara</h1>
             <h2 className="">Founder</h2>
           </div>
         </div>
       </div>
-      <Footer className={"absolute"} />
     </>
   );
 };

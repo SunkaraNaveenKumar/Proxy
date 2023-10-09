@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "../footer/Footer";
 const AboutUsMileStone = () => {
   const banner =
     "https://www.infovision.com/sites/default/files/images/banner/cover/2022-01/InfoVision%20Bannerr_option%205%20copy%202.png";
@@ -22,7 +21,6 @@ const AboutUsMileStone = () => {
           </h1>
         </div>
       </div>
-      <Footer className={"absolute"} />
     </>
   );
 };

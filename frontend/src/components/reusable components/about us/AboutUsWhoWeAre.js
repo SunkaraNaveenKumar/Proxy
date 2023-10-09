@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "../footer/Footer";
 const AboutUsWhoWeAre = () => {
   const banner =
     "https://www.infovision.com/sites/default/files/images/banner/cover/2022-01/InfoVision%20Bannerr_option%205.png";
@@ -24,7 +23,6 @@ const AboutUsWhoWeAre = () => {
           </h1>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

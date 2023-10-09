@@ -36,13 +36,13 @@ const ForgetPassword = () => {
   };
   if (isLoading) {
     return (
-      <div className="flex w-full h-screen justify-center items-center">
+      <div className="flex w-full h-[80vh] justify-center items-center">
         <img src={loadingIcon} alt="loading"></img>
       </div>
     );
   }
   return (
-    <div className="w-full bg-gray-100 h-screen flex  justify-center items-center">
+    <div className="w-full bg-gray-100 h-[80vh] flex  justify-center items-center">
       {passwordError ? (
         <p className="text-3xl text-red-500 font-bold">
           SERVER ISSUE PLEASE TRY AFTER SOME TIME

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
@@ -43,9 +42,7 @@ const Navigation = () => {
     }
   }, [dispatch, isLoggedIn, role]);
   return (
-    <div className="">
-      <Header />
-
+    <div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route
@@ -118,6 +115,7 @@ const Navigation = () => {
           ></Route>
         </Route>
       </Routes>
+
     </div>
   );
 };

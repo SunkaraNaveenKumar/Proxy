@@ -84,7 +84,7 @@ const Header = () => {
               </div>
               <AboutUsHoverLinks />
               <div>
-                <Link to="/user/contact">Contact us</Link>
+                <Link to="/user/contact" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Contact us</Link>
               </div>
             </>
           )}
@@ -96,7 +96,7 @@ const Header = () => {
               </div> */}
               <AboutUsHoverLinks />
               <div>
-                <Link to="/user/contact">Contact us</Link>
+                <Link to="/user/contact" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Contact us</Link>
               </div>
               <div className="relative group">
                 <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
