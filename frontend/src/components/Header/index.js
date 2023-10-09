@@ -3,32 +3,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../custom hooks/useAuth";
 import { useSelector } from "react-redux";
 import navushhIcon from "../../assets/navushh.svg";
-
-const AboutUsHoverLinks = () => {
-  return (
-    <div className="relative group">
-      <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
-        About us
-      </Link>
-      <div className="w-52 absolute hidden group-hover:block text-white rounded-md">
-        <div className="bg-gray-700 mt-5">
-          <Link to="/user/about/who-we-are" className="flex hover:bg-gray-600 py-2 px-4">
-            Who we are
-          </Link>
-          <Link to="/user/about/board-of-directors" className="flex hover:bg-gray-600 py-2 px-4">
-            Board of Directors
-          </Link>
-          <Link to="/user/about/mile-stone" className="flex hover:bg-gray-600 py-2 px-4">
-            Milestones
-          </Link>
-          <Link to="/user/about/partnerships" className="flex hover:bg-gray-600 py-2 px-4">
-            Partnerships
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { AboutUs } from "../reusable components/AboutUs";
 
 const Header = () => {
   const userLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -82,9 +57,14 @@ const Header = () => {
               <div>
                 <Link to="/admin/login">Admin</Link>
               </div>
-              <AboutUsHoverLinks />
+              <AboutUs />
               <div>
-                <Link to="/user/contact" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Contact us</Link>
+                <Link
+                  to="/user/contact"
+                  className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
+                >
+                  Contact us
+                </Link>
               </div>
             </>
           )}
@@ -94,9 +74,14 @@ const Header = () => {
               {/* <div>
                 <Link to={`/courses/${role}`}>Courses</Link>
               </div> */}
-              <AboutUsHoverLinks />
+              <AboutUs />
               <div>
-                <Link to="/user/contact" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">Contact us</Link>
+                <Link
+                  to="/user/contact"
+                  className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
+                >
+                  Contact us
+                </Link>
               </div>
               <div className="relative group">
                 <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
