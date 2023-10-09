@@ -60,7 +60,7 @@ const MyCourses = () => {
     );
   }
   return (
-    <div className="flex flex-col justify-center items-center mt-20">
+    <div className="flex flex-col justify-center items-center mt-8">
       <Toaster />
       <SearchBar
         searchText={searchText}

@@ -17,7 +17,7 @@ const Header = () => {
       <div className=" w-full flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
         <div className="">
           <img
-            className="h-16 rounded-lg"
+            className="h-14 rounded-xl"
             src={navushhIcon}
             alt="navushh"
           ></img>
@@ -27,7 +27,7 @@ const Header = () => {
             className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
             to="/"
           >
-            Home
+            HOME
           </Link>
           {/* <div>
             <Link to="/user/contacts">Contacts</Link>
@@ -41,7 +41,7 @@ const Header = () => {
                 className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 to="/admin/allusers"
               >
-                Users
+                USERS
               </Link>
             </>
           )}
@@ -49,13 +49,13 @@ const Header = () => {
           {!userLoggedIn && !adminLoggedIn && (
             <>
               <div>
-                <Link to="/user/login">Login</Link>
+                <Link to="/user/login">LOGIN</Link>
               </div>
               <div>
-                <Link to="/user/register">Register</Link>
+                <Link to="/user/register">REGISTER</Link>
               </div>
               <div>
-                <Link to="/admin/login">Admin</Link>
+                <Link to="/admin/login">ADMIN</Link>
               </div>
               <AboutUs />
               <div>
@@ -63,7 +63,7 @@ const Header = () => {
                   to="/user/contact"
                   className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 >
-                  Contact us
+                  CONTACT US
                 </Link>
               </div>
             </>
@@ -80,12 +80,12 @@ const Header = () => {
                   to="/user/contact"
                   className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 >
-                  Contact us
+                  CONTACT US
                 </Link>
               </div>
               <div className="relative group">
                 <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
-                  Courses
+                  COURSES
                 </Link>
                 <div className="w-52 absolute hidden group-hover:block text-white rounded-md">
                   <div className="h-5 bg-transparent"></div>

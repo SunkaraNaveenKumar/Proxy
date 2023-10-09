@@ -42,7 +42,7 @@ const Navigation = () => {
     }
   }, [dispatch, isLoggedIn, role]);
   return (
-    <div>
+    <div className="mt-16">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route

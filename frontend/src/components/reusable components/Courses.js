@@ -30,7 +30,7 @@ const Courses = () => {
   // console.log("courses", courses);
   // console.log("error", error);
   return (
-    <div className="flex mt-20 flex-col justify-center items-center gap-2">
+    <div className="flex mt-8 flex-col justify-center items-center gap-2">
       <SearchBar searchText={searchText} handleSearch={handleSearch} />
       {isLoading ? (
         <>

@@ -5,7 +5,7 @@ export const AboutUs = () => {
   return (
     <div className="relative group">
       <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
-        About us
+        ABOUT US
       </Link>
       <div className="w-52 absolute hidden group-hover:block text-white rounded-md">
         <div className="bg-gray-700 mt-5">

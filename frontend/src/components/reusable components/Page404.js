@@ -12,7 +12,7 @@ const Page404 = () => {
     return () => { clearInterval(timer.current) }
   }, [navigate]);
   return (
-    <div className="mt-16 w-full h-[80vh] flex justify-center items-center">
+    <div className="w-full h-59 flex justify-center items-center">
       <div className="bg-pink-200 rounded-lg  h-16 flex items-center justify-center w-2/5">
         <h1 className=" text-xl text-center font-bold ">
           The Link that you are looking for is not Present <br />

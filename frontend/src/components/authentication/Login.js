@@ -83,14 +83,14 @@ const Login = () => {
   };
   if (userLoginLoading || adminLoginLoading) {
     return (
-      <div className="mt-16 flex w-full h-[80vh] justify-center items-center">
+      <div className="flex w-full h-59 justify-center items-center">
         {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
         <img src={loadingIcon} alt="loading"></img>
       </div>
     );
   }
   return (
-    <div className="mt-16 bg-gray-100 w-full h-[80vh] flex flex-col justify-center items-center gap-y-5">
+    <div className="bg-gray-100 w-full h-59 flex flex-col justify-center items-center gap-y-5">
       {!isAdminLogin && loginError && (
         <p className="text-red-500 text-xl font-bold">{loginError}</p>
       )}

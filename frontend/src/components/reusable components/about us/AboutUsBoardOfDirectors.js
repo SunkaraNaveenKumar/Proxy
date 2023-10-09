@@ -8,7 +8,7 @@ const AboutUsBoardOfDirectors = () => {
   return (
     <>
       <div
-        className="mt-16 h-65 flex justify-start items-center w-100"
+        className="h-65 flex justify-start items-center w-100"
         style={{ backgroundImage: `url(${aboutUsBoardOfDirectorsBanner})`, backgroundSize: "cover" }}
       >
         <div className="h-full w-50 flex flex-col justify-center pl-32">
@@ -31,7 +31,7 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-3xl mb-2 font-serif">Naveen Sunkara</h1>
+            <h1 className="text-3xl mb-2 font-serif text-ellipsis">Naveen Sunkara</h1>
             <h2 className="">CEO</h2>
           </div>
         </div>
@@ -44,7 +44,7 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-3xl mb-2 font-serif">Akbar Ali Khan</h1>
+            <h1 className="text-3xl mb-2 font-serif text-ellipsis">Akbar Ali Khan</h1>
             <h2 className="">Marketing Manager</h2>
           </div>
         </div>
@@ -57,7 +57,7 @@ const AboutUsBoardOfDirectors = () => {
             />
           </div>
           <div className="h-1/4 pl-10 w-full flex flex-col justify-center">
-            <h1 className="text-3xl mb-2 font-serif">Naveen Sunkara</h1>
+            <h1 className="text-3xl mb-2 font-serif text-ellipsis">Naveen Sunkara</h1>
             <h2 className="">Founder</h2>
           </div>
         </div>
