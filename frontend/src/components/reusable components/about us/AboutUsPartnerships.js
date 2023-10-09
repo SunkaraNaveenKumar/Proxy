@@ -7,10 +7,10 @@ const AboutUsPartnerships = () => {
   return (
     <>
       <div
-        className="mt-16 h-[80vh] flex justify-start items-center w-100"
+        className="mt-16 h-59 flex justify-start items-center w-100"
         style={{ backgroundImage: `url(${aboutUsPartnershipsBanner})`, backgroundSize: "cover" }}
       >
-        <div className="h-[80vh] w-[50vw] flex flex-col justify-center pl-32">
+        <div className="h-59 w-50 flex flex-col justify-center pl-32">
           <h1 className="text-black font-serif text-5xl leading-snug">
             Startegic Partnerships <br />
             to <span className="text-blue-700">#AccelerateDigital</span>

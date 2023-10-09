@@ -7,10 +7,10 @@ const AboutUsMileStone = () => {
   return (
     <>
       <div
-        className="mt-16 h-[80vh] flex justify-start items-center w-100"
+        className="mt-16 h-59 flex justify-start items-center w-100"
         style={{ backgroundImage: `url(${aboutUsMileStoneBanner})`, backgroundSize: "cover" }}
       >
-        <div className="h-[80vh] w-[50vw] flex flex-col justify-center pl-32">
+        <div className="h-59 w-50 flex flex-col justify-center pl-32">
           <h5 className="text-gray-600 font-serif text-2xl mb-4 font-thin">
             OUR MILESTONES
           </h5>

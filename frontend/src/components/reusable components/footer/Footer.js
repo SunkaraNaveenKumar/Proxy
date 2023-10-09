@@ -3,7 +3,7 @@ import { FaTwitter, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="bg-black w-100 h-[84px] flex justify-end items-center px-10 mt-auto">
+    <div className="bg-black w-100 h-17 flex justify-end items-center px-10 mt-auto shrink-0">
       <div className="flex flex-row gap-x-7 text-white">
         <h1 className="">FOLLOW US ON</h1>
         <a href="/" className="">

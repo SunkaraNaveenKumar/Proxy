@@ -8,10 +8,10 @@ const AboutUsBoardOfDirectors = () => {
   return (
     <>
       <div
-        className="mt-16 h-[90vh] flex justify-start items-center w-100"
+        className="mt-16 h-65 flex justify-start items-center w-100"
         style={{ backgroundImage: `url(${aboutUsBoardOfDirectorsBanner})`, backgroundSize: "cover" }}
       >
-        <div className="h-[80vh] w-[50vw] flex flex-col justify-center pl-32">
+        <div className="h-full w-50 flex flex-col justify-center pl-32">
           <h5 className="text-gray-600 font-serif text-2xl mb-4 font-thin">
             THE NAVUSHH TEAM
           </h5>
@@ -21,7 +21,7 @@ const AboutUsBoardOfDirectors = () => {
           </h1>
         </div>
       </div>
-      <div className="h-[80vh] w-100 bg-slate-100 px-12 py-5 flex flex-row justify-around">
+      <div className="h-65 w-100 bg-slate-100 px-12 py-5 flex flex-row justify-around">
         <div className="h-full w-1/4 flex flex-col border-2 rounded-xl shadow-lg">
           <div className="h-4/5 w-full">
             <img
