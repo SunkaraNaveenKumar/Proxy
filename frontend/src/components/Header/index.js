@@ -4,6 +4,7 @@ import useAuth from "../custom hooks/useAuth";
 import { useSelector } from "react-redux";
 import navushhIcon from "../../assets/navushh.svg";
 import { AboutUs } from "../reusable components/AboutUs";
+import { headerBgImage } from "../../utils/staticImageUrls";
 
 const Header = () => {
   const userLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -13,8 +14,8 @@ const Header = () => {
   const { role } = useAuth();
   console.log("header");
   return (
-    <div className="fixed z-10 w-full top-0 left-0">
-      <div className=" w-full flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
+    <div className="fixed z-10 w-full top-0 left-0" style={{backgroundImage: `url(${headerBgImage})`, backgroundSize: 'cover'}}>
+      <div className=" w-full flex flex-row font-bold justify-between items-center px-10 h-16">
         <div className="">
           <img
             className="h-14 rounded-xl"

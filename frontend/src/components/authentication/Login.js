@@ -10,9 +10,10 @@ import { useLoginMutation } from "../../store/apis/userApi";
 import { useAdminLoginMutation } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
 import { setAdminEmail, setAdminPassword } from "../../store/slices/adminSlice";
+import { homeBodyFrameBackgroundImage } from "../../utils/staticImageUrls";
 const Login = () => {
   // console.log(process.env.REACT_APP_SERVER_URL);
-  console.log("login")
+  console.log("login");
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,20 +78,34 @@ const Login = () => {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   };
   if (userLoginLoading || adminLoginLoading) {
     return (
-      <div className="flex w-full h-59 justify-center items-center">
+      <div
+        className="flex w-full h-59 justify-center items-center"
+        style={{
+          backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
+          backgroundSize: "contain",
+        }}
+      >
         {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
         <img src={loadingIcon} alt="loading"></img>
       </div>
     );
   }
   return (
-    <div className="bg-gray-100 w-full h-59 flex flex-col justify-center items-center gap-y-5">
+    <div
+      className="w-full h-59 flex flex-col justify-center items-center gap-y-5"
+      style={{
+        backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
+        backgroundSize: "contain",
+      }}
+    >
+      <h1 className="text-gray-100 text-3xl font-bold font-Georgia tracking-wider">Login To Navushh</h1>
+      <p className="text-slate-300 text-sm mt-0 tracking-widest">Land Your Dream Job</p>
       {!isAdminLogin && loginError && (
         <p className="text-red-500 text-xl font-bold">{loginError}</p>
       )}
@@ -99,11 +114,11 @@ const Login = () => {
       )}
       <form
         onSubmit={handleLogin}
-        className=" flex flex-col justify-center items-center gap-4 p-7 w-2/5   border border-black border-solid rounded-lg "
+        className=" flex flex-col justify-center items-center gap-4 p-7 w-1/3 border border-gray-400 border-solid rounded-lg "
       >
         <input
           type="text"
-          className="border border-solid border-black rounded-lg shadow-lg pl-6 h-10 w-full"
+          className="rounded-lg shadow-lg pl-6 h-10 w-full"
           placeholder="Email..."
           name="userEmail"
           value={isAdminLogin ? adminEmail : loginUserEmail}
@@ -111,7 +126,7 @@ const Login = () => {
         ></input>
         <input
           type="text"
-          className="border border-solid border-black rounded-lg shadow-lg pl-6 h-10 w-full"
+          className="rounded-lg shadow-lg pl-6 h-10 w-full"
           placeholder="password..."
           name="userPassword"
           value={isAdminLogin ? adminPassword : loginUserPassword}
