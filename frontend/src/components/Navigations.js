@@ -61,7 +61,7 @@ const Navigation = () => {
           path="/about/partnerships"
           element={<AboutUsPartnerships />}
         ></Route>
-        <Route path="/user/contact" element={<ContactUs />}></Route>
+        <Route path="/contact" element={<ContactUs />}></Route>
         <Route path="*" element={<Page404 />}></Route>
         {/* public routes */}
         <Route element={<PublicRoutes />}>

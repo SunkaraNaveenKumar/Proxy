@@ -60,7 +60,7 @@ const Header = () => {
               <AboutUs />
               <div>
                 <Link
-                  to="/user/contact"
+                  to="/contact"
                   className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 >
                   CONTACT US
@@ -77,7 +77,7 @@ const Header = () => {
               <AboutUs />
               <div>
                 <Link
-                  to="/user/contact"
+                  to="/contact"
                   className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 >
                   CONTACT US
