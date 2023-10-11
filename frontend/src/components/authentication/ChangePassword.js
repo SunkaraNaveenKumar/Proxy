@@ -73,13 +73,13 @@ const ChangePassword = () => {
   };
   if (isLoading) {
     return (
-      <div className=" flex w-full h-screen justify-center items-center">
+      <div className=" flex w-full h-59 justify-center items-center">
         <img src={loadingIcon} alt="loading"></img>
       </div>
     );
   }
   return (
-    <div className="w-full bg-gray-100 h-screen flex justify-center items-center gap-y-5 bg-gray-300">
+    <div className="w-full bg-gray-100 h-59 flex justify-center items-center gap-y-5 bg-gray-300">
       {isSuccess ? (
         <p className="text-2xl text-green-400 font-bold">{isSuccess}</p>
       ) : (

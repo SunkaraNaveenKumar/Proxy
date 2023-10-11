@@ -4,7 +4,7 @@ const Home = () => {
   useEffect(() => {
     console.log("home");
   }, []);
-  return <div className="mt-[200px]">Home</div>;
+  return <div className="">Home</div>;
 };
 
 export default Home;

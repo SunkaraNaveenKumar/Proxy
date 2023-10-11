@@ -4,7 +4,7 @@ const ContactUs = () => {
   useEffect(() => {
     console.log("contact us");
   }, []);
-  return <div className="mt-[200px]">ContactUs</div>;
+  return <div className="">ContactUs</div>;
 };
 
 export default ContactUs;

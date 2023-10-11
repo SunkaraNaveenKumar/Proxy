@@ -55,14 +55,14 @@ const Register = () => {
   };
   if (isLoading) {
     return (
-      <div className=" flex w-full h-screen justify-center items-center">
+      <div className="flex w-full h-59 justify-center items-center">
         {/* <p className="text-xl font-bold text-red-100">isLoading........</p> */}
         <img src={loadingIcon} alt="loading"></img>
       </div>
     );
   }
   return (
-    <div className=" bg-gray-100 w-full h-screen flex flex-col justify-center items-center gap-y-5">
+    <div className="bg-gray-100 w-full h-59 flex flex-col justify-center items-center gap-y-5">
       {registerError && typeof registerError == "string" && (
         <p className="text-xl font-bold text-red-500">{registerError}</p>
       )}

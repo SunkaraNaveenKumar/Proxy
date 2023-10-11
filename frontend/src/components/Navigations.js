@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
@@ -23,8 +22,11 @@ import Lectures from "./reusable components/Lectures";
 import MyCourses from "./reusable components/MyCourses";
 import EnrolledCourses from "./admin/EnrolledCourses";
 import PublicRoutes from "./reusable components/PublicRoutes";
-import AboutUs from "./reusable components/AboutUs";
+import AboutUsWhoWeAre from "./reusable components/about us/AboutUsWhoWeAre";
 import ContactUs from "./reusable components/ContactUs";
+import AboutUsBoardOfDirectors from "./reusable components/about us/AboutUsBoardOfDirectors";
+import AboutUsMileStone from "./reusable components/about us/AboutUsMailStone";
+import AboutUsPartnerships from "./reusable components/about us/AboutUsPartnerships";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -40,13 +42,26 @@ const Navigation = () => {
     }
   }, [dispatch, isLoggedIn, role]);
   return (
-    <div className="">
-      <Header />
-
+    <div className="mt-16">
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/user/about" element={<AboutUs />}></Route>
-        <Route path="/user/contact" element={<ContactUs />}></Route>
+        <Route
+          path="/about/who-we-are"
+          element={<AboutUsWhoWeAre />}
+        ></Route>
+        <Route
+          path="/about/board-of-directors"
+          element={<AboutUsBoardOfDirectors />}
+        ></Route>
+        <Route
+          path="/about/mile-stone"
+          element={<AboutUsMileStone />}
+        ></Route>
+        <Route
+          path="/about/partnerships"
+          element={<AboutUsPartnerships />}
+        ></Route>
+        <Route path="/contact" element={<ContactUs />}></Route>
         <Route path="*" element={<Page404 />}></Route>
         {/* public routes */}
         <Route element={<PublicRoutes />}>
@@ -100,6 +115,7 @@ const Navigation = () => {
           ></Route>
         </Route>
       </Routes>
+
     </div>
   );
 };
