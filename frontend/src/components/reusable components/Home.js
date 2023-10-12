@@ -20,7 +20,7 @@ const Home = () => {
         className="h-96 w-80 shadow-xl rounded-xl pt-28 px-8 bg-cover bg-center"
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
-        <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
+        <h1 className="w-4 text-3xl font-bold font-serif text-blue-500">
           Our Services
         </h1>
       </div>
@@ -28,7 +28,7 @@ const Home = () => {
         className="h-96 w-80 shadow-xl rounded-xl pt-28 px-8 bg-cover bg-center"
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
-        <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
+        <h1 className="w-4 text-3xl font-bold font-serif text-blue-500">
           Job Support
         </h1>
       </div>
@@ -36,7 +36,7 @@ const Home = () => {
         className="h-96 w-80 shadow-xl rounded-xl pt-28 px-8 bg-cover bg-center"
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
-        <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
+        <h1 className="w-4 text-3xl font-bold font-serif text-blue-500">
           Proxy
         </h1>
       </div>
@@ -44,7 +44,7 @@ const Home = () => {
         className="h-96 w-80 shadow-xl rounded-xl pt-28 px-8 bg-cover bg-center"
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
-        <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
+        <h1 className="w-4 text-3xl font-bold font-serif text-blue-500">
           Online Courses
         </h1>
       </div>
