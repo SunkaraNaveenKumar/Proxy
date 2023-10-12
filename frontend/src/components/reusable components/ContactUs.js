@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
+  bodyBackgroundImage,
   contactUsImage,
-  homeBodyFrameBackgroundImage,
 } from "../../utils/staticImageUrls";
 
 const ContactUs = () => {
@@ -12,8 +12,8 @@ const ContactUs = () => {
     <div
       className="min-h-59 flex justify-center items-center"
       style={{
-        backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-        backgroundSize: "contain",
+        backgroundImage: `url(${bodyBackgroundImage})`,
+        backgroundSize: "cover",
       }}
     >
       <img src={contactUsImage} alt="" className="h-80" />

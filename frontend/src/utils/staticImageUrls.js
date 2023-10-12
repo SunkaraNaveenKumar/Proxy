@@ -1,4 +1,4 @@
-export const headerBgImage = 'https://cdn.pixabay.com/photo/2017/07/08/10/24/orange-2484007_1280.png'
+export const headerBgImage = 'https://cdn.pixabay.com/photo/2017/12/10/20/56/feather-3010848_1280.jpg'
 
 export const aboutUsWhoWeAreBanner = "https://www.infovision.com/sites/default/files/images/banner/cover/2022-01/InfoVision%20Bannerr_option%205.png"
 
@@ -16,6 +16,6 @@ export const servicesImage = 'https://cdn.pixabay.com/photo/2015/10/30/10/45/ser
 
 export const onlineCoursesImage = 'https://cdn.pixabay.com/photo/2018/03/22/10/55/training-course-3250007_1280.jpg'
 
-export const homeBodyFrameBackgroundImage = 'https://cdn.pixabay.com/photo/2022/06/20/14/20/space-7273891_1280.jpg'
+export const bodyBackgroundImage = 'https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712_1280.jpg'
 
 export const contactUsImage = 'https://cdn.pixabay.com/photo/2016/02/11/21/51/contact-us-1194644_1280.png'

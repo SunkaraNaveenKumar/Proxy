@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  homeBodyFrameBackgroundImage,
+  bodyBackgroundImage,
   onlineCoursesImage,
 } from "../../utils/staticImageUrls";
 
@@ -12,8 +12,8 @@ const Home = () => {
     <div
       className="min-h-59 flex flex-wrap gap-y-5 justify-around py-10"
       style={{
-        backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-        backgroundSize: "contain",
+        backgroundImage: `url(${bodyBackgroundImage})`,
+        backgroundSize: "cover",
       }}
     >
       <div
@@ -21,7 +21,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
         <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
-          Online Courses
+          Our Services
         </h1>
       </div>
       <div
@@ -29,7 +29,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
         <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
-          Online Courses
+          Job Support
         </h1>
       </div>
       <div
@@ -37,7 +37,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${onlineCoursesImage})` }}
       >
         <h1 className="w-4 text-3xl font-bold font-serif text-orange-500">
-          Online Courses
+          Proxy
         </h1>
       </div>
       <div

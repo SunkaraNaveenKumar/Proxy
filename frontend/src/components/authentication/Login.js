@@ -10,7 +10,8 @@ import { useLoginMutation } from "../../store/apis/userApi";
 import { useAdminLoginMutation } from "../../store/apis/adminApi";
 import loadingIcon from "../../assets/loading.svg";
 import { setAdminEmail, setAdminPassword } from "../../store/slices/adminSlice";
-import { homeBodyFrameBackgroundImage } from "../../utils/staticImageUrls";
+import { bodyBackgroundImage } from "../../utils/staticImageUrls";
+
 const Login = () => {
   // console.log(process.env.REACT_APP_SERVER_URL);
   console.log("login");
@@ -87,8 +88,8 @@ const Login = () => {
       <div
         className="flex w-full h-59 justify-center items-center"
         style={{
-          backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-          backgroundSize: "contain",
+          backgroundImage: `url(${bodyBackgroundImage})`,
+          backgroundSize: "cover",
         }}
       >
         {/* <p className="text-xl font-bold text-red-400">isLoading........</p> */}
@@ -100,8 +101,8 @@ const Login = () => {
     <div
       className="w-full h-59 flex flex-col justify-center items-center gap-y-5"
       style={{
-        backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-        backgroundSize: "contain",
+        backgroundImage: `url(${bodyBackgroundImage})`,
+        backgroundSize: "cover",
       }}
     >
       <h1 className="text-gray-100 text-3xl font-bold font-Georgia tracking-wider">Login To Navushh</h1>
@@ -114,7 +115,7 @@ const Login = () => {
       )}
       <form
         onSubmit={handleLogin}
-        className=" flex flex-col justify-center items-center gap-4 p-7 w-1/3 border border-gray-400 border-solid rounded-lg "
+        className=" flex flex-col justify-center items-center gap-4 p-7 w-1/3 border border-gray-100 border-solid rounded-lg "
       >
         <input
           type="text"

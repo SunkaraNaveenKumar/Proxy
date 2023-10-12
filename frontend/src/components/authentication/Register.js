@@ -8,7 +8,7 @@ import {
 import { useAddUserMutation } from "../../store/apis/userApi";
 import { Link, useNavigate } from "react-router-dom";
 import loadingIcon from "../../assets/loading.svg";
-import { homeBodyFrameBackgroundImage } from "../../utils/staticImageUrls";
+import { bodyBackgroundImage } from "../../utils/staticImageUrls";
 
 const Register = () => {
   console.log("register");
@@ -59,8 +59,8 @@ const Register = () => {
       <div
         className="flex w-full h-59 justify-center items-center"
         style={{
-          backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-          backgroundSize: "contain",
+          backgroundImage: `url(${bodyBackgroundImage})`,
+          backgroundSize: "cover",
         }}
       >
         {/* <p className="text-xl font-bold text-red-100">isLoading........</p> */}
@@ -72,8 +72,8 @@ const Register = () => {
     <div
       className="w-full h-59 flex flex-col justify-center items-center gap-y-5"
       style={{
-        backgroundImage: `url(${homeBodyFrameBackgroundImage})`,
-        backgroundSize: "contain",
+        backgroundImage: `url(${bodyBackgroundImage})`,
+        backgroundSize: "cover",
       }}
     >
       {registerError && typeof registerError == "string" && (
@@ -87,7 +87,7 @@ const Register = () => {
         </p>
       <form
         onSubmit={handleRegister}
-        className=" flex flex-col justify-center items-center gap-4 p-7 w-1/3 border border-gray-400 border-solid rounded-lg "
+        className=" flex flex-col justify-center items-center gap-4 p-7 w-1/3 border border-gray-100 border-solid rounded-lg "
       >
         <div className="flex flex-col w-full">
           {registerError?.username && (
