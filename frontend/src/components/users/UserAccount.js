@@ -190,7 +190,7 @@ const UserAccount = () => {
     );
   }
   return (
-    <div className="flex flex-col mt-16">
+    <div className="flex flex-col">
       <Toaster/>
       {errors && (
         <p className="text-red-500 text-bold text-base flex justify-center items-center mt-5">
@@ -199,7 +199,7 @@ const UserAccount = () => {
       )}
 
       <form
-        className="flex flex-col  py-10 gap-y-7 px-20"
+        className="flex flex-col py-10 gap-y-7 px-20"
         onSubmit={handleUserDetails}
       >
         <div className="flex flex-row flex-wrap gap-x-20">

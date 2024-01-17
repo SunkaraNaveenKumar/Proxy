@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import useAuth from "../custom hooks/useAuth";
 import { useSelector } from "react-redux";
 import navushhIcon from "../../assets/navushh.svg";
+import { AboutUs } from "../reusable components/AboutUs";
+
 const Header = () => {
   const userLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const adminLoggedIn = useSelector((state) => state.admin.isLoggedIn);
@@ -11,11 +13,11 @@ const Header = () => {
   const { role } = useAuth();
   console.log("header");
   return (
-    <div className="fixed z-10 w-full top-0 left-0">
-      <div className=" w-full flex flex-row  justify-between items-center bg-red-200 px-10 h-16">
+    <div className="fixed z-10 w-full top-0 left-0 bg-gradient-to-b from-blue-600 to-rose-100">
+      <div className=" w-full flex flex-row font-bold justify-between items-center px-10 h-16">
         <div className="">
           <img
-            className="h-16 rounded-lg"
+            className="h-14 rounded-xl"
             src={navushhIcon}
             alt="navushh"
           ></img>
@@ -25,7 +27,7 @@ const Header = () => {
             className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
             to="/"
           >
-            Home
+            HOME
           </Link>
           {/* <div>
             <Link to="/user/contacts">Contacts</Link>
@@ -39,7 +41,7 @@ const Header = () => {
                 className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
                 to="/admin/allusers"
               >
-                Users
+                USERS
               </Link>
             </>
           )}
@@ -47,19 +49,22 @@ const Header = () => {
           {!userLoggedIn && !adminLoggedIn && (
             <>
               <div>
-                <Link to="/user/login">Login</Link>
+                <Link to="/user/login" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">LOGIN</Link>
               </div>
               <div>
-                <Link to="/user/register">Register</Link>
+                <Link to="/user/register" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">REGISTER</Link>
               </div>
               <div>
-                <Link to="/admin/login">Admin</Link>
+                <Link to="/admin/login" className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">ADMIN</Link>
               </div>
+              <AboutUs />
               <div>
-                <Link to="/user/about">About us</Link>
-              </div>
-              <div>
-                <Link to="/user/contact">Contact us</Link>
+                <Link
+                  to="/contact"
+                  className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
+                >
+                  CONTACT US
+                </Link>
               </div>
             </>
           )}
@@ -69,22 +74,25 @@ const Header = () => {
               {/* <div>
                 <Link to={`/courses/${role}`}>Courses</Link>
               </div> */}
+              <AboutUs />
               <div>
-                <Link to="/user/about">About us</Link>
-              </div>
-              <div>
-                <Link to="/user/contact">Contact us</Link>
+                <Link
+                  to="/contact"
+                  className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg"
+                >
+                  CONTACT US
+                </Link>
               </div>
               <div className="relative group">
                 <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
-                  Courses
+                  COURSES
                 </Link>
                 <div className="w-52 absolute hidden group-hover:block text-white rounded-md">
                   <div className="h-5 bg-transparent"></div>
 
-                  <div className="bg-gray-700">
+                  <div className="bg-gray-700 rounded-b-xl">
                     <Link
-                      className="flex  hover:bg-gray-600 py-2 px-4"
+                      className="flex hover:bg-gray-600 py-2 px-4"
                       to={`/allcourses/${role}`}
                     >
                       All Courses
@@ -92,13 +100,13 @@ const Header = () => {
                     {role === "admin" && (
                       <>
                         <Link
-                          className="flex  hover:bg-gray-600 py-2 px-4"
+                          className="flex hover:bg-gray-600 py-2 px-4"
                           to={`/mycourses/${role}`}
                         >
                           My Courses
                         </Link>
                         <Link
-                          className="flex  hover:bg-gray-600 py-2 px-4"
+                          className="flex hover:bg-gray-600 py-2 px-4 rounded-b-xl"
                           to="admin/addcourse"
                         >
                           Add Course
@@ -108,7 +116,7 @@ const Header = () => {
                     {role === "user" && (
                       <>
                         <Link
-                          className="flex  hover:bg-gray-600 py-2 px-4"
+                          className="flex hover:bg-gray-600 py-2 px-4 rounded-b-xl"
                           to={`/mycourses/${role}`}
                         >
                           My Courses
@@ -121,11 +129,11 @@ const Header = () => {
 
               <div className="relative group">
                 <Link className="text-black hover:bg-gray-300 px-3 py-2 rounded-lg">
-                  Profile
+                  PROFILE
                 </Link>
-                <div className="w-52 absolute  hidden group-hover:block text-white right-0">
+                <div className="w-52 absolute hidden group-hover:block text-white right-0">
                   <div className="bg-transparent h-5"></div>
-                  <div className="bg-gray-700">
+                  <div className="bg-gray-700 rounded-b-xl">
                     <Link
                       className="flex hover:bg-gray-600 py-2 px-4"
                       to={`/${role}/account`}
@@ -133,10 +141,10 @@ const Header = () => {
                       Account
                     </Link>
                     <Link
-                      className="flex  hover:bg-gray-600 py-2 px-4"
+                      className="flex  hover:bg-gray-600 py-2 px-4 rounded-b-xl"
                       to={`/logout/${role}`}
                     >
-                      logout
+                      Logout
                     </Link>
                   </div>
                 </div>
